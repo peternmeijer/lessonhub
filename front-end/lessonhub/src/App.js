@@ -1,23 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Navigation from "./components/Navigation/Navigation";
+import Welcome from "./components/Welcome/Welcome"
+import ParticlesBg from "particles-bg";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ParticlesBg type = "cobweb" num = {200} color="#FFFFFF" bg={true} />
+      <Navigation />
+      <Welcome />
     </div>
   );
 }
