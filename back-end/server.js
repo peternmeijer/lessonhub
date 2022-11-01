@@ -1,4 +1,11 @@
+//modules
 const express = require('express')
+require('dotenv').config({path: "./.env"});
+
+//imported functions
+const connectDB = require('./config/db')
+
+connectDB()
 
 const app = express();
 
