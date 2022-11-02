@@ -15,3 +15,7 @@ const LessonSchema = new mongoose.Schema(
         default: 0
     }
 });
+
+const Lesson = mongoose.model("Lesson", LessonSchema);
+
+module.exports = Lesson;
