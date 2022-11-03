@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Welcome = () => {
-
+const Home = () => {
     return (
         <div style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
             <div>
@@ -11,10 +11,12 @@ const Welcome = () => {
                 <p>Blah Blah Blah subheading here</p>
             </div>
             <div>
-                <button>Create Lesson</button>
+                <Link to="/lessons">
+                    <button>Create Lesson</button>
+                </Link>
             </div>
         </div>
     );
 }
 
-export default Welcome;
+export default Home;
