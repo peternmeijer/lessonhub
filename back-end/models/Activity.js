@@ -1,4 +1,3 @@
-const { Int32 } = require('mongodb')
 const mongoose = require('mongoose')
 
 //TODO: Add the sections to store the creator objects as well
@@ -11,7 +10,7 @@ const ActivitySchema = new mongoose.Schema(
         required: true
     },
     duration:{
-        type: Int32,
+        type: Number,
         required: true
     },
     equipment: [String],
@@ -26,3 +25,7 @@ const ActivitySchema = new mongoose.Schema(
     }
 
 })
+
+const Activity = mongoose.model("Activity", ActivitySchema);
+
+module.exports = Activity;
