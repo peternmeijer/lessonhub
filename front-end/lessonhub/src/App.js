@@ -1,27 +1,31 @@
 import React from "react";
-import Navigation from "./components/Navigation/Navigation";
-import Home from "./components/Home/Home";
-import Calendar from "./components/Calendar/Calendar";
-import Lessons from "./components/Lessons/Lessons";
-import About from "./components/About/About";
-
 import ParticlesBg from "particles-bg";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { UserProvider } from "./contexts/user.context";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Signup from "./components/Signup/Signup";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <ParticlesBg type="cobweb" num={200} color="#FFFFFF" bg={true} />
-        <Navigation />
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/calendar' element={<Calendar/>} />
-          <Route path='/lessons' element={<Lessons/>} />
-          <Route path='/about' element={<About/>} />
-        </Routes>
-      </Router>
+      <ParticlesBg type="cobweb" num={200} color="#FFFFFF" bg={true} />
+      <BrowserRouter>
+        {/* We are wrapping our whole app with UserProvider so that */}
+        {/* our user is accessible through out the app from any page*/}
+        <UserProvider>
+          <Routes>
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            {/* We are protecting our Home Page from unauthenticated */}
+            {/* users by wrapping it with PrivateRoute here. */}
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/" element={<Home />} />
+            </Route>
+          </Routes>
+        </UserProvider>
+      </BrowserRouter>
     </div>
   );
 }
