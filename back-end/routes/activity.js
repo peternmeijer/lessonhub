@@ -1,11 +1,16 @@
 const express = require('express')
 const router = express.Router()
 
+//controllers
 const {getActivity, createActivity, updateActivity, deleteActivity} = require('../controllers/activity')
 
-router.route("/").post(createActivity);
-router.route("/:id").get(getActivity)
-router.route("/:id").patch(updateActivity);
-router.route("/:id").delete(deleteActivity);
+//middleware
+const {checkAccess, accountTypeGuard} = require("../middleware/accessVerification");
+
+//routes
+router.route("/").post(checkAccess, accountTypeGuard("Instructor"), createActivity);
+router.route("/:id").get(checkAccess, accountTypeGuard("Instructor"), getActivity)
+router.route("/:id").patch(checkAccess, accountTypeGuard("Instructor"), updateActivity);
+router.route("/:id").delete(checkAccess, accountTypeGuard("Instructor"), deleteActivity);
 
 module.exports = router;
