@@ -14,7 +14,7 @@ const Login = () => {
  // We are using React's "useState" hook to keep track
  //  of the form values.
  const [form, setForm] = useState({
-   email: "",
+   username: "",
    password: ""
  });
  
@@ -27,6 +27,7 @@ const Login = () => {
  // This function will redirect the user to the
  // appropriate page once the authentication is done.
  const redirectNow = () => {
+ 
    const redirectTo = location.search.replace("?redirectTo=", "");
    navigate(redirectTo ? redirectTo : "/");
  }
@@ -40,6 +41,7 @@ const Login = () => {
    if (!user) {
      const fetchedUser = await fetchUser();
      if (fetchedUser) {
+       
        // Redirecting them once fetched.
        redirectNow();
      }
@@ -59,10 +61,12 @@ const Login = () => {
      // Here we are passing user details to our emailPasswordLogin
      // function that we imported from our realm/authentication.js
      // to validate the user credentials and log in the user into our App.
-     const user = await emailPasswordLogin(form.email, form.password);
+     const user = await emailPasswordLogin(form.username, form.password);
+     
      if (user) {
        redirectNow();
      }
+     
    } catch (error) {
        if (error.statusCode === 401) {
           alert("Invalid username/password. Try again!");
@@ -76,11 +80,11 @@ const Login = () => {
  return <form style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
    <h1>Login</h1>
    <TextField
-     label="Email"
-     type="email"
+     label="Username"
+     type="text"
      variant="outlined"
-     name="email"
-     value={form.email}
+     name="username"
+     value={form.username}
      onChange={onFormInputChange}
      style={{ marginBottom: "1rem" }}
    />
