@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Signup from "./components/Signup/Signup";
 
+
 function App() {
   return (
     <div className="App">

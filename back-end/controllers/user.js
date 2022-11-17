@@ -25,7 +25,7 @@ exports.loginUser = async(req, res, next) => {
 
     try{
         //get user from database, only retrieve password field
-        const user = await User.findOne({username}).select("password")
+        const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1})
 
         //check if user exists
         if(!user)
@@ -37,11 +37,26 @@ exports.loginUser = async(req, res, next) => {
         if(!isPasswordMatch)
             return next(new ResponseError("Invalid Credentials."),401)
 
+        console.log(user)
+        res.cookie("access-token", user.getSignedAccessToken(),{
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax'
+        })
+        res.cookie("refresh-token", user.getSignedRefreshToken(),{
+            path: '/',
+            httpOnly: true,
+            sameSite: 'lax'
+        })
         //return access token and refresh token with 200 response
         res.status(200).send({
             success: true,
-            access_token: user.getSignedAccessToken(),
-            refresh_token: user.getSignedRefreshToken()
+            user:{
+                _id: user._id,
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname
+            }
         })
 
     }
@@ -50,6 +65,14 @@ exports.loginUser = async(req, res, next) => {
     }
 }
 
+exports.logoutUser = async(req,res,next) =>{
+    console.log("logout user")
+    res.clearCookie('access-token');
+    res.clearCookie('refresh-token');
+    res.status(200).send({
+        success: true
+    })
+}
 //method for register user route
 //request parameter must include the register token
 //request body must be of format {username: username, firstname: firstname, lastname: lastname, password: password}
@@ -58,10 +81,11 @@ exports.registerUser = async(req, res, next) =>{
    
     try{
         const token = req.params.token
-        const {username, firstname, lastname, password} = req.body
+        const {username, email, firstname, lastname, password} = req.body
         
         //check the required fields were passed with request
         wasProvided(username, "username")
+        wasProvided(email, "email")
         wasProvided(firstname, "firstname")
         wasProvided(lastname, "lastname")
         wasProvided(password, "password")
@@ -79,6 +103,7 @@ exports.registerUser = async(req, res, next) =>{
         const newUser = new User({
             username: username,
             password: password,
+            email: email,
             firstname: firstname,
             lastname: lastname,
             accountType: tokenObject.accountType
@@ -90,6 +115,9 @@ exports.registerUser = async(req, res, next) =>{
         //send access tokena and refresh token
         res.status(201).send({
             success: true,
+            username: username,
+            firstname: firstname,
+            lastname: lastname,
             access_token: savedUser.getSignedAccessToken(),
             refresh_token: savedUser.getSignedRefreshToken()
         })
