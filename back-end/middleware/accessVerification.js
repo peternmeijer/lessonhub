@@ -8,13 +8,10 @@ const ResponseError = require("../utils/responseError")
 const User = require('../models/User')
 
 exports.checkAccess = async(req,res,next) =>{
-    //declare variable to hold token from request header Authorization
-    let accessToken;
 
-    //check that the Authorization header is provided, with Bearer {token}, then extract access token
-    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
-    accessToken = req.headers.authorization.split(" ")[1]
+    const cookies = req.cookies;
     
+    const accessToken = cookies['access-token']
 
     //check if no token exists
     if(!accessToken)
