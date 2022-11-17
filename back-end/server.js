@@ -1,6 +1,8 @@
 //modules
 const express = require('express')
 require('dotenv').config({path: "./.env"});
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 //imported functions
 const connectDB = require('./config/db')
@@ -13,6 +15,8 @@ connectDB()
 const app = express();
 
 //used to deconstruct json from requests
+app.use(cors())
+app.use(cookieParser())
 app.use(express.json())
 
 //include routes
