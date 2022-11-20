@@ -1,30 +1,33 @@
 import React from "react";
-import Form from "react-bootstrap/Form"
-import Button from "react-bootstrap/Button"
+import LessonCardList from "../LessonCardList/LessonCardList";
 
-const Lessons = () => {
+class Lessons extends React.Component {
 
-    return (
-        <div style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
-            <h1>Create Lesson</h1>
-            <hr></hr>
-            <Form>
-                <Form.Group className="mb-3">
-                    <Form.Label>Lesson Title</Form.Label>
-                    <Form.Control placeholder="Enter Lesson Title" />
-                </Form.Group>
+    constructor(){
+		super();
+		this.state = {
+			lessonData: [],
+		}
+	}
 
-                <Form.Group className="mb-3">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" placeholder="Password" />
-                </Form.Group>
+    componentDidMount(){
+		fetch('https://jsonplaceholder.typicode.com/users')
+			.then(response => response.json())
+			.then(users => this.setState({lessonData: users}));
+	}
 
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
-        </div>
-    );
+    render() {
+
+        const { lessonData } = this.state;
+
+        return (
+            <div className='tc'>
+                <LessonCardList lessonData={lessonData} />
+            </div>
+
+        );
+
+    }
 }
 
 export default Lessons;
