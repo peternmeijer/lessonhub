@@ -9,11 +9,12 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Signup from "./components/Signup/Signup";
 import Calendar from "./components/Calendar/Calendar";
 import Lessons from "./components/Lessons/Lessons";
+import LessonBuilder from "./components/LessonBuilder/LessonBuilder";
 import Activity from "./components/Activity/Activity";
 import About from "./components/About/About";
 
-
 function App() {
+  
   return (
     <div className="App">
       <ParticlesBg type="cobweb" num={200} color="#FFFFFF" bg={true} />
@@ -31,6 +32,7 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route exact path="/calendar" element={<Calendar />} />
               <Route exact path="/lessons" element={<Lessons />} />
+              <Route exact path="/lessonbuilder" element={<LessonBuilder />} />
               <Route exact path="/activity" element={<Activity />} />
               <Route exact path="/about" element={<About />} />
             </Route>
