@@ -7,7 +7,23 @@ import { UserContext } from "../../contexts/user.context";
 import { Button } from '@mui/material';
 
 const Navigation = () => {
+    const { logOutUser } = useContext(UserContext);
 
+    // This function is called when the user clicks the "Logout" button.
+    const logOut = async () => {
+      try {
+        // Calling the logOutUser function from the user context.
+        const response = await logOutUser();
+        window.location.reload(true);
+        localStorage.removeItem("user")
+        // Now we will refresh the page, and the user will be logged out and
+        // redirected to the login page because of the <PrivateRoute /> component.
+        
+      } catch (error) {
+        alert(error)
+      }
+    }
+    
     return(
         <>
         <Navbar bg="dark" variant="dark">
@@ -28,22 +44,7 @@ const Navigation = () => {
     );
 
 
-  const { logOutUser } = useContext(UserContext);
-
-  // This function is called when the user clicks the "Logout" button.
-  const logOut = async () => {
-    try {
-      // Calling the logOutUser function from the user context.
-      const loggedOut = await logOutUser();
-      // Now we will refresh the page, and the user will be logged out and
-      // redirected to the login page because of the <PrivateRoute /> component.
-      if (loggedOut) {
-        window.location.reload(true);
-      }
-    } catch (error) {
-      alert(error)
-    }
-  }
+ 
 
 
 }
