@@ -6,23 +6,35 @@ import ActivityTask from "./ActivityTask"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import {saveActivity} from "../Utils/apiCalls"
+//component for the activity builder page and associated state methods
 const ActivityBuilder = () => {
 
-    const blankTask = {name: "", description: "", position: 1}
+    //use state for input fields
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [duration, setDuration] = useState("")
+
+    //states for materials form   
     const [material, setMaterial] = useState("")
     const [materialList, setMaterialList] = useState(new Array())
 
+    //states for equipment
     const [equipment, setEquipment] = useState("")
     const [equipmentList, setEquipmentList] = useState(new Array())
 
+    //states for tags
     const [tag, setTag] = useState("")
     const [tagList, setTagList] = useState(new Array())
 
+    //default blank task object for new task creation, used to initialize state
+    const blankTask = {name: "", description: "", position: 1}
+    //set states to keep track of number of tasks, new task fields, and task list
     const [numTasks, setNumTasks] = useState(0)
     const [newTask, setNewTask] = useState(blankTask)
     const [tasks, setTasks] = useState(new Array())
     
+    //new task creation form field for task name change, update the task state
     const handleTaskNameChange = (taskName) =>{
             setNewTask({
                 name: taskName,
@@ -31,6 +43,7 @@ const ActivityBuilder = () => {
             })
     }
 
+    //new task creation form field for description change, update the task state
     const handleTaskDescriptionChange = (taskDescription) =>{
             setNewTask({
                 name: newTask.name,
@@ -39,10 +52,7 @@ const ActivityBuilder = () => {
             })
     }
 
-    Array.prototype.move = function (from, to) {
-        this.splice(to, 0, this.splice(from, 1)[0]);
-    };
-
+    //adds the new task to the task list
     const addTask = () => {
         if(newTask.name.trim() != "" && newTask.description != "")
         {
@@ -56,6 +66,12 @@ const ActivityBuilder = () => {
         }
     }
 
+    //make prototype method for swapping array values, used in incPos and decPos
+    Array.prototype.move = function (from, to) {
+        this.splice(to, 0, this.splice(from, 1)[0]);
+    };
+
+    //method to reorder the task incrementing the position
     const incTaskPos = (task) => {
         //clone tasks state list
         const taskList = JSON.parse(JSON.stringify(tasks))
@@ -75,6 +91,7 @@ const ActivityBuilder = () => {
         
     }
 
+    //method to reorder the task decrementing the position
     const decTaskPos = (task) => {
         //clone tasks state list
         const taskList = JSON.parse(JSON.stringify(tasks))
@@ -94,8 +111,11 @@ const ActivityBuilder = () => {
         
     }
 
+    //method to remove task from the task list
     const removeTask = (task) => {
+        //remove the tasks from the list
         let taskList = tasks.filter(t => t.position != task.position)
+        //update the position variables
         for(let x = 0; x < taskList.length; x ++)
         {
             if(taskList[x].position > task.position)
@@ -103,13 +123,50 @@ const ActivityBuilder = () => {
                 taskList[x].position = taskList[x].position - 1
             }
         }
+        //decrement the num of tasks and update the task list state
         setNumTasks(numTasks - 1)
         setTasks(taskList)
     }
 
+    const saveNewActivity = () => {
+        if(name.trim() == "" || description.trim() == "")
+        {
+            alert("Must provide activity name and description.")
+            return
+        }
+
+        let integer_duration = 0
+
+        try{
+            integer_duration = parseInt(duration)
+        }catch (error)
+        {
+            alert("Duration must be an integer representing minutes of activity.")
+            return
+        } 
+
+        if(integer_duration < 1)
+        {
+            alert("Duration must be larger than zero.")
+            return
+        }
+
+        const activity_object_payload = {
+            name: name,
+            description: description,
+            duration: parseInt(duration),
+            tasks: tasks,
+            equipment: equipmentList,
+            materials: materialList,
+            tags: tagList,
+        }
+
+        saveActivity(activity_object_payload, function(response){console.log(response)}, function(error){console.log(error)})
+    }
+
     return (
         
-        <Container style={{ flexDirection: "column", display: 'flex', justifyContent: 'center', height: '90vh', paddingTop: "200px" }}>
+        <Container style={{ flexDirection: "column",  justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
             <Row>
                 <h1>Create Activity</h1>
                 <hr></hr>
@@ -121,17 +178,17 @@ const ActivityBuilder = () => {
                     <br></br>
                     <Form.Group className="mb-3">
                         <Form.Label>Activity Name</Form.Label>
-                        <Form.Control placeholder="Enter Activity Name" />
+                        <Form.Control placeholder="Enter Activity Name" value={name} onChange={(event)=>{setName(event.target.value)}}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label>Estimated Duration (mins)</Form.Label>
-                        <Form.Control type="number" placeholder="Enter Duration (mins)" />
+                        <Form.Control type="number" placeholder="Enter Duration (mins)"value={duration} onChange={(event)=>{setDuration(event.target.value)}} />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" placeholder="Activity Description" />
+                        <Form.Control as="textarea" placeholder="Activity Description" value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
                     </Form.Group>
                     <FormMultiAdd title="Materials" placeholder="Enter Material Name" buttonText = "Add" input={material} setInput={setMaterial} list={materialList} setList={setMaterialList}></FormMultiAdd>
                     <FormMultiAdd title="Equipment" placeholder="Enter Equipment Name"  buttonText = "Add" input={equipment} setInput={setEquipment} list={equipmentList} setList={setEquipmentList}></FormMultiAdd>
@@ -150,14 +207,14 @@ const ActivityBuilder = () => {
                 <Col style={{width: "40%"}}>
                     <h3>Activity Tasks</h3>
                     <br></br>
-                    <div id="tasks_list">{tasks.map(task => <ActivityTask name={task.name} description={task.description} position={task.position} maxPos={tasks.length} incPos={() => incTaskPos(task)} decPos={() => decTaskPos(task)} rmTask={()=> removeTask(task)}></ActivityTask>)}
+                    <div id="tasks_list">{tasks.map(task => <ActivityTask key={task.position} name={task.name} description={task.description} position={task.position} maxPos={tasks.length} incPos={() => incTaskPos(task)} decPos={() => decTaskPos(task)} rmTask={()=> removeTask(task)}></ActivityTask>)}
                     </div>
                 </Col>
             </Row>
             <Row style={{alignItems: 'center',  justifyContent: 'center'}}>
                 <hr></hr>
                 
-                <Button className= "mb-3" variant="primary" style={{width: "70%"}}>
+                <Button onClick={saveNewActivity} className= "mb-3" variant="primary" style={{width: "70%"}}>
                         Create Activity
                 </Button>
                 <hr></hr>
