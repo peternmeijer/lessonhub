@@ -1,10 +1,13 @@
 import { Container } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
-import React from "react";
+import { React, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/user.context";
+import { Button } from '@mui/material';
 
 const Navigation = () => {
+
     return(
         <>
         <Navbar bg="dark" variant="dark">
@@ -17,11 +20,32 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
               <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
+              <Button variant="contained" onClick={logOut}>Logout</Button>
             </Nav>
           </Container>
         </Navbar>
       </>
     );
+
+
+  const { logOutUser } = useContext(UserContext);
+
+  // This function is called when the user clicks the "Logout" button.
+  const logOut = async () => {
+    try {
+      // Calling the logOutUser function from the user context.
+      const loggedOut = await logOutUser();
+      // Now we will refresh the page, and the user will be logged out and
+      // redirected to the login page because of the <PrivateRoute /> component.
+      if (loggedOut) {
+        window.location.reload(true);
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+
 }
 
 export default Navigation;
