@@ -13,6 +13,10 @@ const ActivitySchema = new mongoose.Schema(
         type: Number,
         required: true
     },
+    tasks:{
+        name: String,
+        description: String
+    },
     equipment: [String],
     materials: [String],
     description:{
