@@ -7,7 +7,7 @@ const {getActivity, createActivity, updateActivity, deleteActivity} = require('.
 //middleware
 const {checkAccess, accountTypeGuard} = require("../middleware/accessVerification");
 
-//routes
+//activity sub-routes
 router.route("/").post(checkAccess, accountTypeGuard("Instructor"), createActivity);
 router.route("/:id").get(checkAccess, accountTypeGuard("Instructor"), getActivity)
 router.route("/:id").patch(checkAccess, accountTypeGuard("Instructor"), updateActivity);
