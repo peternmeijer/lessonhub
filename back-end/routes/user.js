@@ -7,7 +7,7 @@ const {loginUser, registerUser, createUser, logoutUser} = require('../controller
 //middleware
 const {checkAccess, accountTypeGuard} = require("../middleware/accessVerification");
 
-//routes
+//user sub-routes
 router.route("/login").post(loginUser);
 router.route("/logout").post(checkAccess, logoutUser);
 router.route("/register/:token").post(registerUser);
