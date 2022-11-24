@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
    }
 
    //send request to backend
-   let res = await axios.post("http://localhost:5000/api/user/login", payload)
+   let res = await axios.post("http://localhost:5000/api/user/login", payload, { withCredentials: true })
    
    const user = res.data.user
    
