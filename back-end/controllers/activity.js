@@ -12,7 +12,7 @@ exports.createActivity = async(req, res, next) =>{
             title: title,
             duration: duration,
             equipment: equipment,
-            matierals: materials,
+            materials: materials,
             description: description,
             tags: tags,
             visibility: visibility
