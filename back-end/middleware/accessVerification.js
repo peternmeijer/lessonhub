@@ -15,7 +15,7 @@ exports.checkAccess = async(req,res,next) =>{
 
     //check if no token exists
     if(!accessToken)
-        return next(new ResponseError("Not Authorized to Access this Route",401));
+        return next(new ResponseError("No access token.",401));
     
 
     try
