@@ -15,7 +15,12 @@ connectDB()
 const app = express();
 
 //used to deconstruct json from requests
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:3000",
+    preflightContinue: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  }))
 app.use(cookieParser())
 app.use(express.json())
 

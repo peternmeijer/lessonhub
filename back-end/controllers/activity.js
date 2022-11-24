@@ -5,11 +5,11 @@ exports.createActivity = async(req, res, next) =>{
 
     //TODO: Modify this to add the tasks and user objects
     try{
-        const {title, duration, equipment, materials, description, tasks, tags, visibility} = req.body
+        const {name, duration, equipment, materials, description, tasks, tags, visibility} = req.body
 
         //create new activity with data from the request body
         const activity = new Activity({
-            title: title,
+            name: name,
             duration: duration,
             equipment: equipment,
             materials: materials,
@@ -76,11 +76,11 @@ exports.updateActivity = async(req, res, next) => {
         //grab ID and data from URL
         const activityId = req.params.id
 
-        const {title, duration, equipment, materials, description, tasks, tags, visibility} = req.body
+        const {name, duration, equipment, materials, description, tasks, tags, visibility} = req.body
 
         //create an update json query
         const updates={
-            title: title,
+            name: name,
             duration: duration,
             equipment: equipment,
             materials: materials,

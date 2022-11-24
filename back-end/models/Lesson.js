@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const Activity = require('./Activity')
+
 const LessonSchema = new mongoose.Schema(
 {
     title:{
