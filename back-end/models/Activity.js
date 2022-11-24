@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const ActivitySchema = new mongoose.Schema(
 {
-    title:{
+    name:{
         type: String,
         required: true
     },
@@ -13,6 +13,11 @@ const ActivitySchema = new mongoose.Schema(
         type: Number,
         required: true
     },
+    tasks:[{
+        name: String,
+        description: String,
+        position: Number
+    }],
     equipment: [String],
     materials: [String],
     description:{
