@@ -1,5 +1,4 @@
 import React from "react";
-import ParticlesBg from "particles-bg";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from "./contexts/user.context";
 import Navigation from "./components/Navigation/Navigation"
@@ -10,14 +9,15 @@ import Signup from "./components/Signup/Signup";
 import Calendar from "./components/Calendar/Calendar";
 import Lessons from "./components/Lessons/Lessons";
 import LessonBuilder from "./components/LessonBuilder/LessonBuilder";
-import Activity from "./components/Activity/Activity";
+import Activities from "./components/Activities/Activities";
+import ActivityBuilder from "./components/ActivityBuilder/ActivityBuilder";
 import About from "./components/About/About";
 
 function App() {
   
   return (
     <div className="App">
-      <ParticlesBg type="cobweb" num={200} color="#FFFFFF" bg={true} />
+      
       <BrowserRouter>
         {/* We are wrapping our whole app with UserProvider so that */}
         {/* our user is accessible through out the app from any page*/}
@@ -33,7 +33,8 @@ function App() {
               <Route exact path="/calendar" element={<Calendar />} />
               <Route exact path="/lessons" element={<Lessons />} />
               <Route exact path="/lessonbuilder" element={<LessonBuilder />} />
-              <Route exact path="/activity" element={<Activity />} />
+              <Route exact path="/activities" element={<Activities />} />
+              <Route exact path="/activitybuilder" element={<ActivityBuilder />} />
               <Route exact path="/about" element={<About />} />
             </Route>
           </Routes>

@@ -14,7 +14,8 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
               <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
               <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
-              <Nav.Link as={Link} to="/activity">Activities</Nav.Link>
+              <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
+              <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
             </Nav>
           </Container>

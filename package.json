@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/peternmeijer/lessonhub#readme",
   "dependencies": {
+    "browserify": "^17.0.0",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "react-bootstrap-multiselect": "^2.4.1"
   }
 }
