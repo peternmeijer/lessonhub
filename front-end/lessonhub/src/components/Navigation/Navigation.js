@@ -8,6 +8,26 @@ import { Button } from '@mui/material';
 
 const Navigation = () => {
 
+    return(
+        <>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
+            <Nav className="justify-content-end">
+              <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
+              <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
+              <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
+              <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
+              <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
+              <Nav.Link as={Link} to="/about">About</Nav.Link>
+              <Button variant="contained" onClick={logOut}>Logout</Button>
+            </Nav>
+          </Container>
+        </Navbar>
+      </>
+    );
+
+
   const { logOutUser } = useContext(UserContext);
 
   // This function is called when the user clicks the "Logout" button.
@@ -24,23 +44,8 @@ const Navigation = () => {
       alert(error)
     }
   }
-  return (
-    <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
-          <Nav className="justify-content-end">
-            <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
-            <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
-            <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
-            <Nav.Link as={Link} to="/activity">Activities</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
-            <Button variant="contained" onClick={logOut}>Logout</Button>
-          </Nav>
-        </Container>
-      </Navbar>
-    </>
-  );
+
+
 }
 
 export default Navigation;
