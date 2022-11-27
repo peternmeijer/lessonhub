@@ -8,7 +8,7 @@ const LessonBuilder = () => {
         <div style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
             <h1>Create Lesson</h1>
             <hr></hr>
-            <Form>
+            <Form style={{width: '90%'}}>
                 <Form.Group className="mb-3">
                     <Form.Label>Lesson Title</Form.Label>
                     <Form.Control placeholder="Enter Lesson Title" />
