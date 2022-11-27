@@ -26,7 +26,9 @@ exports.loginUser = async(req, res, next) => {
     try{
         //get user from database, only retrieve password field
         const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1})
-
+        //save user for new requests
+        req.user = user
+        
         //check if user exists
         if(!user)
             return next(new ResponseError("Invalid Credentials."),401)
@@ -37,7 +39,7 @@ exports.loginUser = async(req, res, next) => {
         if(!isPasswordMatch)
             return next(new ResponseError("Invalid Credentials."),401)
 
-        console.log(user)
+        
         res.cookie("access-token", user.getSignedAccessToken(),{
             path: '/',
             httpOnly: true,
@@ -73,6 +75,7 @@ exports.logoutUser = async(req,res,next) =>{
         success: true
     })
 }
+
 //method for register user route
 //request parameter must include the register token
 //request body must be of format {username: username, firstname: firstname, lastname: lastname, password: password}

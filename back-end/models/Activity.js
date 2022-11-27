@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 
+const User = require("./User")
 //TODO: Add the sections to store the creator objects as well
 //TODO: Add the sections to store the tasks
 
 const ActivitySchema = new mongoose.Schema(
 {
+    owner: mongoose.Types.ObjectId,
     name:{
         type: String,
         required: true
