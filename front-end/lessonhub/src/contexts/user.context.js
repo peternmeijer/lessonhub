@@ -46,6 +46,8 @@ export const UserProvider = ({ children }) => {
    }
    
  }
+
+ 
  
  // Function to logout user from our App Services app
  const logOutUser = async () => {
