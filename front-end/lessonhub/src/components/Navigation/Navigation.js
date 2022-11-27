@@ -9,7 +9,6 @@ import { Button } from '@mui/material';
 const Navigation = () => {
     const { logOutUser } = useContext(UserContext);
 
-    // This function is called when the user clicks the "Logout" button.
     const logOut = async () => {
       try {
         // Calling the logOutUser function from the user context.
