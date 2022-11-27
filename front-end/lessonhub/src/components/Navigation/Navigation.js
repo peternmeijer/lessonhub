@@ -7,45 +7,46 @@ import { UserContext } from "../../contexts/user.context";
 import { Button } from '@mui/material';
 
 const Navigation = () => {
-    const { logOutUser } = useContext(UserContext);
+  const { logOutUser } = useContext(UserContext);
 
-    // This function is called when the user clicks the "Logout" button.
-    const logOut = async () => {
-      try {
-        // Calling the logOutUser function from the user context.
-        const response = await logOutUser();
-        window.location.reload(true);
-        localStorage.removeItem("user")
-        // Now we will refresh the page, and the user will be logged out and
-        // redirected to the login page because of the <PrivateRoute /> component.
-        
-      } catch (error) {
-        alert(error)
-      }
+  // This function is called when the user clicks the "Logout" button.
+  const logOut = async () => {
+    try {
+      // Calling the logOutUser function from the user context.
+      const response = await logOutUser();
+      window.location.reload(true);
+      localStorage.removeItem("user")
+      // Now we will refresh the page, and the user will be logged out and
+      // redirected to the login page because of the <PrivateRoute /> component.
+
+    } catch (error) {
+      alert(error)
     }
-    
-    return(
-        <>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
-            <Nav className="justify-content-end">
+  }
+
+  return (
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+        <Container>
+          <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+            </Nav>
+            <Nav>
               <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
               <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
               <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
               <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
               <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
-              <Button variant="contained" onClick={logOut}>Logout</Button>
+              <Button variant="contained" onClick={logOut} >Logout</Button>
             </Nav>
-          </Container>
-        </Navbar>
-      </>
-    );
-
-
- 
-
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
 
 }
 
