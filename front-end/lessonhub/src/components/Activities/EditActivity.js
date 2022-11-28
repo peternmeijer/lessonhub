@@ -1,42 +1,41 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import FormMultiAdd from "../Utils/FormMultiAdd"
-import ActivityTask from "./ActivityTask"
+import ActivityTask from "../ActivityBuilder/ActivityTask"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {saveActivity} from "../Utils/apiCalls"
+import {editActivity} from "../Utils/apiCalls"
 import { useNavigate } from 'react-router-dom';
 
 
-//component for the activity builder page and associated state methods
-const ActivityBuilder = () => {
-    const navigate = useNavigate();
+const EditActivity = (props) => {
+    const {activity, setEditActivity} = props
     //use state for input fields
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [duration, setDuration] = useState("")
+    const [name, setName] = useState(activity.name)
+    const [description, setDescription] = useState(activity.description)
+    const [duration, setDuration] = useState(activity.duration)
 
     //states for materials form   
     const [material, setMaterial] = useState("")
-    const [materialList, setMaterialList] = useState(new Array())
+    const [materialList, setMaterialList] = useState(activity.materials)
 
     //states for equipment
     const [equipment, setEquipment] = useState("")
-    const [equipmentList, setEquipmentList] = useState(new Array())
+    const [equipmentList, setEquipmentList] = useState(activity.equipment)
 
     //states for tags
     const [tag, setTag] = useState("")
-    const [tagList, setTagList] = useState(new Array())
-
-    const [visibility, setVisibility] = useState(false)
+    const [tagList, setTagList] = useState(activity.tags)
+    
+    const [visibility, setVisibility] = useState(activity.visibility)
     //default blank task object for new task creation, used to initialize state
     const blankTask = {name: "", description: "", position: 1}
     //set states to keep track of number of tasks, new task fields, and task list
-    const [numTasks, setNumTasks] = useState(0)
+    const [numTasks, setNumTasks] = useState(activity.tasks.length)
     const [newTask, setNewTask] = useState(blankTask)
-    const [tasks, setTasks] = useState(new Array())
+    const [tasks, setTasks] = useState(activity.tasks)
     
     //new task creation form field for task name change, update the task state
     const handleTaskNameChange = (taskName) =>{
@@ -132,7 +131,7 @@ const ActivityBuilder = () => {
         setTasks(taskList)
     }
 
-    const saveNewActivity = () => {
+    const saveEditedActivity = () =>{
         //validate name and description are provided
         if(name.trim() == "" || description.trim() == "")
         {
@@ -160,7 +159,7 @@ const ActivityBuilder = () => {
         const activity_object_payload = {
             name: name,
             description: description,
-            duration: parseInt(duration),
+            duration: integer_duration,
             tasks: tasks,
             equipment: equipmentList,
             materials: materialList,
@@ -168,22 +167,23 @@ const ActivityBuilder = () => {
             visibility: visibility
         }
 
-        //call api call with payload to save activity
-        saveActivity(activity_object_payload, function(response){
-            console.log(response)
+        //call edit activity request to backend
+        editActivity(activity._id, activity_object_payload, (response) =>{
             if(response.data.success)
             {
-                alert("Successfully added activity: " + response.data.activity.name)
-                navigate('/activities');
+                setEditActivity(null)
             }
-        }, function(error){console.log(error)})
+        }, function(error){
+            console.log(error); 
+            alert("An error occured while trying to edit."); 
+            window.location.reload()
+        })
     }
-
-    return (
-        
+    
+    return(
         <Container style={{ flexDirection: "column",  justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
             <Row>
-                <h1>Create Activity</h1>
+                <h1>Edit Activity</h1>
                 <hr></hr>
             </Row>
             <Row>
@@ -216,6 +216,7 @@ const ActivityBuilder = () => {
                         id="custom-switch"
                         label="Make activity public?"
                         value={visibility}
+                        defaultChecked={visibility}
                         onChange={()=>setVisibility(!visibility)}
                         />
                     </Form.Group>
@@ -240,13 +241,17 @@ const ActivityBuilder = () => {
             <Row style={{alignItems: 'center',  justifyContent: 'center'}}>
                 <hr></hr>
                 
-                <Button onClick={saveNewActivity} className= "mb-3" variant="primary" style={{width: "70%"}}>
-                        Create Activity
+                <Button onClick={saveEditedActivity} className= "mb-3" variant="warning" style={{width: "30%"}}>
+                        Save Activity Edits
+                </Button>
+                <Button onClick={() => setEditActivity(null)} className= "mb-3 ms-3" variant="outline-danger" style={{width: "30%"}}>
+                        Cancel
                 </Button>
                 <hr></hr>
             </Row>
         </Container>
-    );
+    )
+
 }
 
-export default ActivityBuilder;
+export default EditActivity

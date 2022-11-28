@@ -12,6 +12,7 @@ const LessonSchema = new mongoose.Schema(
         type: String
     },
     tags: [String],
+    activities:[mongoose.Types.ObjectId],
     visibility:{
         type: Boolean,
         default: 0
