@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "back end folder",
-  "main": "server.js",
+  "main": "lessonhub_server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon back-end/server.js"
+    "start": "nodemon back-end/lessonhub_server.js"
   },
   "author": "",
   "license": "ISC",
