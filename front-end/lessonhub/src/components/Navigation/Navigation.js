@@ -7,7 +7,8 @@ import { UserContext } from "../../contexts/user.context";
 import { Button } from '@mui/material';
 
 const Navigation = () => {
-    const { logOutUser } = useContext(UserContext);
+  const { logOutUser } = useContext(UserContext);
+
 
     const logOut = async () => {
       try {
@@ -21,30 +22,33 @@ const Navigation = () => {
       } catch (error) {
         alert(error)
       }
+
     }
-    
-    return(
-        <>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
-            <Nav className="justify-content-end">
+  
+
+  return (
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+        <Container>
+          <Navbar.Brand as={Link} to="/">Lesson Hub</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+            </Nav>
+            <Nav>
               <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
               <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
               <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
               <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
               <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
-              <Button variant="contained" onClick={logOut}>Logout</Button>
+              <Button variant="contained" onClick={logOut} >Logout</Button>
             </Nav>
-          </Container>
-        </Navbar>
-      </>
-    );
-
-
- 
-
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
 
 }
 
