@@ -155,6 +155,7 @@ const LessonBuilder = () => {
     }
 
     return (
+
         <>
         <Container style={{ flexDirection: "column",  justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
             <Row>
@@ -197,10 +198,7 @@ const LessonBuilder = () => {
                         Search
                     </Button>
                  </InputGroup>
-                 
-                 
-                 
-            
+    
             {searchResults.length > 0 ? <Table style={{"background" : '#ededed'}} className="mt-3" borderless size="sm"><tbody>{searchResults.map(activity => <ActivityListItem  key={activity._id} activity={activity} setModalActivity={setModalActivity} setShowModal={setShowModal} addLessonActivity = {addLessonActivity}></ActivityListItem>)}</tbody></Table> : searched ? <span style={{"color":"red"}} className="mt-2">No Results.</span> : <></>}
             <br></br>
             </Col>

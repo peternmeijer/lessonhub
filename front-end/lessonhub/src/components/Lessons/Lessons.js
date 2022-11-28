@@ -31,7 +31,11 @@ class Lessons extends React.Component {
 
         return (
             <div className='tc'>
+                <br></br>
+                <h1>Current Lessons</h1>
+                <br></br>
                 <SearchBox searchChange={this.onSearchChange} />
+                <br></br>
                 <LessonCardList lessonData={filteredLessons} />
             </div>
 
