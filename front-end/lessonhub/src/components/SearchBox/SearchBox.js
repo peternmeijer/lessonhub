@@ -1,14 +1,14 @@
 import React from 'react';
+import Form from 'react-bootstrap/Form'
 
-const SearchBox = ({searchfield, searchChange}) => {
-    return(
-        <div class = "form">
-        <input 
-            className = 'pa3 ba center shadow-5 inputBox w-30'
-            type='search' 
-            placeholder ='Search Lessons' 
-            onChange={searchChange}
-        />
+const SearchBox = ({ searchfield, searchChange }) => {
+    return (
+        <div>
+            <Form>
+                <Form.Group className="mb-3 center w-30">
+                    <Form.Control type='search' placeholder="Search Lessons" onChange={searchChange} />
+                </Form.Group>
+            </Form>
         </div>
     )
 }

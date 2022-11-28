@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ActivityList from './ActivityList'
 import {getActivities} from "../Utils/apiCalls"
@@ -15,6 +16,11 @@ const Activities = () => {
     const [modalActivity, setModalActivity] = useState({name:"",description:"",tags:[], materials:[], equipment:[], tasks:[]})
     const [showModal, setShowModal] = useState(false)
     const [editActivity, setEditActivity] = useState(null)
+
+    const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
     useEffect(() => {
         getActivities(function(response){
@@ -50,11 +56,8 @@ const Activities = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="example-modal-sizes-title-lg"
         >
-        <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">
-            {modalActivity.name}
-        </Modal.Title>
-        </Modal.Header>
+        <h1 style={{textAlign: 'center', paddingTop: '10px'}}>{modalActivity.name}</h1>
+               
         <Modal.Body>
             <h5>Description</h5>
             <p className="mb-4">{modalActivity.description}</p>
@@ -74,6 +77,11 @@ const Activities = () => {
             <h5 className="mb-3">Tasks</h5>
             {modalActivity.tasks.map((task, i) => <><h6 key={i + "TP"}>{task.position}. {task.name}</h6> <p key={i + "TN"}>{task.description}</p></>)}
         </Modal.Body>
+        <Modal.Footer>
+					<Button variant="primary" onClick={handleClose}>
+						Back to Activities
+					</Button>
+				</Modal.Footer>
         </Modal></>
         : <EditActivity activity={editActivity} setEditActivity={setEditActivity}></EditActivity>}
         </>
