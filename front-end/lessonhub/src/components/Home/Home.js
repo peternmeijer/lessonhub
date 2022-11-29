@@ -9,12 +9,13 @@ const Home = () => {
             <div style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
                 <img src={logo}></img>
                 <div>
-                    <h1>Welcome to Lesson Hub</h1>
+                    <h1>Bring your lesson plans to life</h1>
                 </div>
-                <div style={{ textAlign: 'center', paddingLeft: '10rem', paddingRight: '10rem' }}>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                <div style={{ textAlign: 'center', paddingLeft: '20rem', paddingRight: '20rem' }}>
+                    <br></br>
+                    <div style={{fontSize: '25px'}}>
+                        <p>Lesson Hub helps community centre instructors build more effective lessons for their participants. Share your unique lesson plans filled with creative activities for your local community centre today.</p>
+                    </div>
                 </div>
                 <div>
                     <Link to="/lessonbuilder">
