@@ -1,25 +1,29 @@
 import React from "react";
 import logo from '../../assets/logo-color.png'
+import learn from '../../assets/learn.jpeg'
 
 const About = () => {
     return (
         <>
-            <div style={{ display: 'flex' }}>
-                <div style={{ width: '50%', position: 'absolute', right: '0em', height: '100%', paddingTop: '100px'}}>
-                    <div style={{ textAlign: 'center', paddingLeft: '5rem', paddingRight: '5rem' }}>
+            <div style={{ display: 'flex', height: '90%' }}>
+                <div style={{ width: '65%', position: 'absolute', left: '65%', top: '50%', transform: 'translate(-50%, -50%)', paddingLeft: '10rem', paddingRight: '5rem'}}>
+                    <div style={{ textAlign: 'center', marginTop: '5em'}}>
                         <img src={logo}></img>
                         <div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                            <p>Community centres offer a wide variety of programs for local residents to enjoy.
+                                These range from activities like swimming lessons, sports clubs and other recreational programs.
+                                However, overtime, instructors who teach these programs will eventually leave, taking a vast majority of their experience with them.
+                                When new instructors are hired to take over for the outgoing instructors, they don’t have the same level of experience, leading to a decrease in the quality of programs.
+                            </p>                
+                            <p><b>Lesson Hub was created to solve this problem.</b></p>
+                            <p>With Lesson Hub, instructors can develop and publish lesson plans and activities with others that they find work particularly well to teach difficult skills or teach skills in a very effective manner.</p>
+                            <p>Start by simply creating activities, assign the activities to a lesson, and share your knowledge with the world.</p>
+                            <p></p>
                             <p>&copy; Peter Meijer, Nolan Morris, Nathan Pogue 2022</p>
                         </div>
                     </div>
                 </div>
-                <div style={{ height: 'auto', background: 'url("https://learnenglish.britishcouncil.org/sites/podcasts/files/styles/wide/public/2022-04/RS8756_GettyImages-1138994168-hig.jpeg?itok=V_SljPr_")', width: '50%', backgroundRepeat: 'no-repeat', position: "absolute", left: "0px", height: '100%' }}></div>
+                <img src={learn} style={{ width: '35%', backgroundRepeat: 'no-repeat', position: "absolute", left: "0px", height: '90%' }}></img>
             </div>
         </>
     );
