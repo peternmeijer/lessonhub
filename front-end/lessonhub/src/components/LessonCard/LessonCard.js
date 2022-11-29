@@ -11,7 +11,7 @@ const LessonCard = ({ id, name, email }) => {
 
 	return (
 		<>
-			<div className='tc bg-light-green dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
+			<div className='tc bg-washed-yellow dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
 				<div onClick={handleShow}>
 					<h2>{name}</h2>
 					<p>{email}</p>
