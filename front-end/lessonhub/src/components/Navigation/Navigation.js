@@ -51,6 +51,7 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/about">About</Nav.Link>
               {accountType != null ? <Button variant="contained" onClick={logOut} >Logout</Button> : <></>}
               {accountType == null ? <Nav.Link as={Link} to="/login">Sign In</Nav.Link> : <></>}
+              {accountType == null ? <Nav.Link as={Link} to="/register">Register</Nav.Link> : <></>}
             </Nav>
           </Navbar.Collapse>
         </Container>
