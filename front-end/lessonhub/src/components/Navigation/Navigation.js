@@ -9,13 +9,13 @@ import logo from '../../assets/logo-color.png'
 
 const Navigation = () => {
   const { logOutUser } = useContext(UserContext);
-
+  const accountType = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).accountType : null
 
   const logOut = async () => {
     try {
       // Calling the logOutUser function from the user context.
       const response = await logOutUser();
-      window.location.reload(true);
+      //window.location.reload(true);
       localStorage.removeItem("user")
       // Now we will refresh the page, and the user will be logged out and
       // redirected to the login page because of the <PrivateRoute /> component.
@@ -26,6 +26,10 @@ const Navigation = () => {
 
   }
 
+  if(accountType == null)
+  {
+    logOut()
+  }
 
   return (
     <>
@@ -37,13 +41,17 @@ const Navigation = () => {
             <Nav className="me-auto">
             </Nav>
             <Nav>
-              <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
-              <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
-              <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>
-              <Nav.Link as={Link} to="/activities">Activities</Nav.Link>
-              <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link>
+              {accountType=="Instructor" || accountType=="Student" ? <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>: <></>}
+              {accountType=="Instructor"  || accountType=="Student"? <Nav.Link as={Link} to="/courses">Courses</Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activities">Activities</Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link> : <></>}
+              {accountType=="Instructor" ||accountType=="Administrator" ? <Nav.Link as={Link} to="/admin">Admin</Nav.Link> : <></> }
               <Nav.Link as={Link} to="/about">About</Nav.Link>
-              <Button variant="contained" onClick={logOut} >Logout</Button>
+              {accountType != null ? <Button variant="contained" onClick={logOut} >Logout</Button> : <></>}
+              {accountType == null ? <Nav.Link as={Link} to="/login">Sign In</Nav.Link> : <></>}
+              {accountType == null ? <Nav.Link as={Link} to="/register">Register</Nav.Link> : <></>}
             </Nav>
           </Navbar.Collapse>
         </Container>

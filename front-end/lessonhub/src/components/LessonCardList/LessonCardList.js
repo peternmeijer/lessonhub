@@ -3,13 +3,10 @@ import LessonCard from '../LessonCard/LessonCard'
 
 const LessonCardList = ({lessonData}) => {
 
-	const cardComponent = lessonData.map((user, i) => {
+	const cardComponent = lessonData.map((lesson, i) => {
+		console.log(lessonData)
 		return(
-			<LessonCard 
-				key = {i} 
-				id ={lessonData[i].id} 
-				name = {lessonData[i].name} 
-				email = {lessonData[i].email}/>
+			<LessonCard lesson={lesson}/>
 			) 
 	})
 

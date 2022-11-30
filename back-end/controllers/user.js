@@ -25,7 +25,7 @@ exports.loginUser = async(req, res, next) => {
 
     try{
         //get user from database, only retrieve password field
-        const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1})
+        const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1, accountType: 1})
         //save user for new requests
         req.user = user
         
@@ -57,7 +57,8 @@ exports.loginUser = async(req, res, next) => {
                 _id: user._id,
                 username: user.username,
                 firstname: user.firstname,
-                lastname: user.lastname
+                lastname: user.lastname,
+                accountType: user.accountType
             }
         })
 
@@ -118,11 +119,6 @@ exports.registerUser = async(req, res, next) =>{
         //send access tokena and refresh token
         res.status(201).send({
             success: true,
-            username: username,
-            firstname: firstname,
-            lastname: lastname,
-            access_token: savedUser.getSignedAccessToken(),
-            refresh_token: savedUser.getSignedRefreshToken()
         })
     }
     catch (error) {
@@ -139,15 +135,26 @@ exports.createUser = async(req, res, next) =>{
     const token = crypto.randomBytes(48).toString("hex")
    
     try{
+        const currentUserAccountType = req.user.accountType
         //get account type from request body
         const {accountType} = req.body
-        
+
+        if(currentUserAccountType == "Student")
+        {
+            return next(new ResponseError("You are not authorized to create accounts.", 401))
+        }
+
         //check if account type is valid
         if(!accountTypes.includes(accountType))
         {
             return next(new ResponseError("Invalid Account Type. Account must of types: "+ accountTypes.toString(), 400))
         }
 
+        if (currentUserAccountType == "Instructor" && (accountType=="Instructor" || accountType=="Administrator"))
+        {
+            return next(new ResponseError("You are not authorized to create this type of account.", 401))
+        }
+        
         //create and save register token
         const regToken = await new RegisterToken({
             token:token,
@@ -164,6 +171,31 @@ exports.createUser = async(req, res, next) =>{
         })
 
     }catch (error)
+    {
+        next(error)
+    }
+}
+
+exports.getStudents = async(req,res,next) => {
+    try{
+        const students = await User.find({accountType: "Student"})
+
+        if(!students)
+        {
+            return res.status(404).send({
+                success: false,
+                message: "No students found"
+            })
+        }
+        else
+        {
+            return res.status(200).send({
+                success:true,
+                students: students
+            })
+        }
+    }
+    catch (error)
     {
         next(error)
     }
