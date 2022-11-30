@@ -118,7 +118,7 @@ const Login = () => {
       Login
     </Button>
     <br></br>
-    <p>Don't have an account? <Link to="/signup">Signup</Link></p>
+    <p>Don't have an account? Ask your Administrator or Instructor for a token.</p><p><Link to="/register"> Register</Link></p>
   </form>
 }
 

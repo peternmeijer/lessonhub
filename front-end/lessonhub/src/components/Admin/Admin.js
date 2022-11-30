@@ -1,26 +1,73 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from '../../assets/logo-color.png'
+import {createRegisterToken} from "../Utils/apiCalls"
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const Admin = () => {
+    const [accountType, setAccountType] = useState("")
+    const [registerToken, setRegisterToken] = useState(null)
+
+    const base_url = window.location.href.replace("/admin", "") + "/register/?token="
+    const userAccountType = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).accountType : null
+
+    const getToken = () =>{
+        if(accountType == "Student" || accountType == "Administrator" || accountType == "Instructor")
+        {   
+            const payload = {
+                accountType: accountType
+            }
+            createRegisterToken(payload, (response) =>{
+                if(response.data.success)
+                {
+                    console.log(response)
+                    setRegisterToken(response.data.registerToken.token)
+                }
+            }, (error)=>{
+                console.log(error)
+                alert("An error has occured. Please try again later. " + error.response.data.error)
+            })
+        }
+    }
     return (
         <>
-            <div style={{ display: 'flex' }}>
-                <div style={{ width: '50%', position: 'absolute', right: '0em', height: '100%', paddingTop: '100px'}}>
-                    <div style={{ textAlign: 'center', paddingLeft: '5rem', paddingRight: '5rem' }}>
-                        <img src={logo}></img>
-                        <div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                            <p>&copy; Peter Meijer, Nolan Morris, Nathan Pogue 2022</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+            <Container style={{ flexDirection: "column",  alignItems: 'center', justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
+                <Row>
+                    <h1>Register</h1>
+                    <hr></hr>
+                </Row>
+                {registerToken == null ?
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Account Type</b></Form.Label>
+                                <Form.Select value={accountType} onChange={(event)=>setAccountType(event.target.value)}>
+                                    <option value="">Select Account Type</option>
+                                    <option value="Student">Student</option>
+                                    {userAccountType == "Administrator" ? <option value="Instructor">Instructor</option> : <></>}
+                                    {userAccountType == "Administrator" ? <option value="Administrator">Administrator</option> : <></>}
+                                </Form.Select>
+                            </Form.Group>
+                            <Button variant="primary" size="sm" onClick={()=>getToken()}>Create Registration Token</Button>
+                        </Form>
+                    </Col>
+                </Row> :
+                <Row>
+                    <Form.Group>
+                        <Form.Label>Token</Form.Label>
+                        <Form.Control disabled type="text" value={registerToken}></Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Register URL</Form.Label>
+                        <Form.Control disabled type="text" value={base_url + registerToken}></Form.Control>
+                    </Form.Group>
+                    <Button variant="warning" className="mt-3" style={{width:"20%"}} size="sm" onClick={()=>setRegisterToken(null)}>Create Another Token</Button>
+                </Row>}
+            </Container>  
         </>
     );
 }
