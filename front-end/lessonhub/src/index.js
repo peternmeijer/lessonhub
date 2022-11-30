@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

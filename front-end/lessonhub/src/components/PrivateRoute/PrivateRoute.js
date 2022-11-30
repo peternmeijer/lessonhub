@@ -1,3 +1,13 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
+/**
+ * THE SOURCE CODE FOR THIS PORTION WAS REFERENCED FROM THIS ARTICLE:
+ * ALL CREDIT GOES TO CREATOR
+ * https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/
+ */
+
 import { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";

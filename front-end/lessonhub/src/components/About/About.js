@@ -1,7 +1,12 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from "react";
 import logo from '../../assets/logo-color.png'
 import learn from '../../assets/learn.jpeg'
 
+//Display information about page 
 const About = () => {
     return (
         <>

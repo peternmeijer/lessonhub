@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -11,6 +15,8 @@ const LessonCard = (props) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	//Render components from backend on each card displayed on lessons page
+	//When clicked, show lesson information and activities
 	return (
 		<>
 			<div className='tc bg-washed-yellow dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>

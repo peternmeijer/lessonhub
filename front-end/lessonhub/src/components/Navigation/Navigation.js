@@ -1,3 +1,13 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
+/**
+ * THE LOGOUT SOURCE CODE FOR THIS PORTION WAS REFERENCED FROM THIS ARTICLE:
+ * ALL CREDIT GOES TO CREATOR
+ * https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/
+ */
+
 import { Container } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";

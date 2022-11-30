@@ -1,3 +1,13 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
+/**
+ * THE SOURCE CODE FOR USING A USER PROVIDER WAS REFERENCED FROM THIS ARTICLE:
+ * ALL CREDIT GOES TO CREATOR
+ * https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/
+ */
+
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from "./contexts/user.context";

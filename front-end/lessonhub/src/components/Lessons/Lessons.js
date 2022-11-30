@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from "react";
 import { getLessons } from "../Utils/apiCalls";
 import LessonCardList from "../LessonCardList/LessonCardList";
@@ -13,6 +17,7 @@ class Lessons extends React.Component {
         }
     }
 
+    //fetch lesson data and populate to each lesson card
     componentDidMount() {
         getLessons((response)=>{
             this.setState({lessonData: response.data.lessons})
@@ -34,6 +39,7 @@ class Lessons extends React.Component {
 			return lessonData.title.toLowerCase().includes(searchfield.toLowerCase());
 		})
 
+        //Render lessons on page and the filtered cards when user searches
         return (
             <div className='tc'>
                 <br></br>

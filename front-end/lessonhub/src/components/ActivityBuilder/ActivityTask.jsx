@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,6 +11,7 @@ import { BsXLg } from "react-icons/bs";
 import { BsArrowUp } from "react-icons/bs";
 import { BsArrowDown } from "react-icons/bs";
 
+//Code to create a task for each activity
 const ActivityTask = (props) => {
     const {name, position, maxPos, description, incPos, decPos, rmTask} = props
 

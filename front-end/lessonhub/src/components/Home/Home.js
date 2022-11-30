@@ -1,9 +1,15 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo-color.png'
 import { Button } from '@mui/material';
 
 const Home = () => {
+
+    //Render home screen with welcome message and link to lesson builder
     return (
         <>
             <div style={{ flexDirection: "column", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '90vh' }}>

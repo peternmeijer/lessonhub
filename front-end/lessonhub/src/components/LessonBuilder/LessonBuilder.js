@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React, {useState, useEffect} from "react";
 import Form from "react-bootstrap/Form"
 import Container from 'react-bootstrap/Container';

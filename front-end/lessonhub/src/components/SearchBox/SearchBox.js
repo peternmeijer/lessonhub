@@ -1,6 +1,11 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React from 'react';
 import Form from 'react-bootstrap/Form'
 
+//Code to render a searchbox to take in user search to update lesson cards on lessons page
 const SearchBox = ({ searchfield, searchChange }) => {
     return (
         <div>
