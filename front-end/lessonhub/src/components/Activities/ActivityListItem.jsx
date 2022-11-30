@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React, {useState} from 'react';
 import { BsBoxArrowUpRight,BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import Button from 'react-bootstrap/Button';

@@ -1,5 +1,8 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React, {useState} from "react";
-import logo from '../../assets/logo-color.png'
 import {createRegisterToken} from "../Utils/apiCalls"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';

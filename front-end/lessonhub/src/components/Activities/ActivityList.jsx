@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import React, {useState} from 'react';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';

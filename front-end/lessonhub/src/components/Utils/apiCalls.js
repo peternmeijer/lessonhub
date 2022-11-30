@@ -1,3 +1,7 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
 import axios from 'axios';
 
 export const getLessons = async (callback, errorCallback) => {

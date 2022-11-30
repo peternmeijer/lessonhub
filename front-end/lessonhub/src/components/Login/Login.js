@@ -1,3 +1,12 @@
+/**
+ * Authors: Peter Meijer, Nolan Morris, Nathan Pogue
+ */
+
+/**
+ * THE SOURCE CODE FOR THIS PORTION WAS REFERENCED FROM THIS ARTICLE:
+ * ALL CREDIT GOES TO CREATOR
+ * https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/
+ */
 import { Button, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
