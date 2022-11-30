@@ -164,3 +164,31 @@ export const getStudentsList = async (callback, errorCallback) => {
         errorCallback(error)
     }
 }
+
+export const registerUser = async(register_token, payload, callback, errorCallback) =>
+{
+    try{
+        let response = await axios.post('http://localhost:5000/api/user/register/'+register_token, payload);
+
+        callback(response)
+    }
+    catch(error)
+    {
+       
+        errorCallback(error)
+    }
+}
+
+export const createRegisterToken = async(payload, callback, errorCallback) =>
+{
+    try{
+        let response = await axios.post('http://localhost:5000/api/user/create/', payload, { withCredentials: true });
+
+        callback(response)
+    }
+    catch(error)
+    {
+       
+        errorCallback(error)
+    }
+}

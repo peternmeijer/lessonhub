@@ -135,15 +135,26 @@ exports.createUser = async(req, res, next) =>{
     const token = crypto.randomBytes(48).toString("hex")
    
     try{
+        const currentUserAccountType = req.user.accountType
         //get account type from request body
         const {accountType} = req.body
-        
+
+        if(currentUserAccountType == "Student")
+        {
+            return next(new ResponseError("You are not authorized to create accounts.", 401))
+        }
+
         //check if account type is valid
         if(!accountTypes.includes(accountType))
         {
             return next(new ResponseError("Invalid Account Type. Account must of types: "+ accountTypes.toString(), 400))
         }
 
+        if (currentUserAccountType == "Instructor" && (accountType=="Instructor" || accountType=="Administrator"))
+        {
+            return next(new ResponseError("You are not authorized to create this type of account.", 401))
+        }
+        
         //create and save register token
         const regToken = await new RegisterToken({
             token:token,
