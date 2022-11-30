@@ -1,4 +1,5 @@
 import React from "react";
+import { getLessons } from "../Utils/apiCalls";
 import LessonCardList from "../LessonCardList/LessonCardList";
 import SearchBox from "../SearchBox/SearchBox";
 
@@ -13,9 +14,13 @@ class Lessons extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(users => this.setState({ lessonData: users }));
+        getLessons((response)=>{
+            this.setState({lessonData: response.data.lessons})
+        },
+        (error)=>{
+            console.log(error)
+        })
+        
     }
 
     onSearchChange = (event) => {
@@ -26,7 +31,7 @@ class Lessons extends React.Component {
 
         const { lessonData, searchfield } = this.state;
 		const filteredLessons = lessonData.filter(lessonData =>{
-			return lessonData.name.toLowerCase().includes(searchfield.toLowerCase());
+			return lessonData.title.toLowerCase().includes(searchfield.toLowerCase());
 		})
 
         return (
