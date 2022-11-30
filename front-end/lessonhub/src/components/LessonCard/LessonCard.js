@@ -13,7 +13,7 @@ const LessonCard = (props) => {
 
 	return (
 		<>
-			<div className='tc bg-light-green dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
+			<div className='tc bg-washed-yellow dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
 				<div onClick={handleShow}>
 					<h2>{lesson.title}</h2>
 					<iframe width="420" height="315"
