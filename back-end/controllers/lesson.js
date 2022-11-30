@@ -4,22 +4,31 @@ exports.getLesson = async(req, res, next) => {
     console.log("Get Lesson")
 
     try{
+        const owner_id = req.user._id
         //get lesson id from url request param
         const lesson_id = req.params.id
 
         //attempt to find the lesson with id from the database
         const lesson = await Lesson.findById({_id: lesson_id})
         
+        if(!lesson.owner.equals(owner_id))
+        {
+            return res.status(401).send({
+                success: false,
+                message: "You do not have access to this lesson."
+            })
+        }
         //if the lesson exists, return it, else, not found error
         if(!lesson)
         {
-            res.status(404).send({
+            return res.status(404).send({
                 success: false,
-                message: "Lesson not found."
+                message: "Lesson not found or you do not have access to this lesson."
             })
         }
         else{
-            res.status(200).send({
+            return res.status(200).send({
+                success: true,
                 lesson: lesson
             })
         }
@@ -37,7 +46,7 @@ exports.getLesson = async(req, res, next) => {
 exports.getLessons = async(req,res,next) => {
     try{
         const owner = req.user._id
-        const lessons = await Lesson.find({ $or: [ { owner: owner }, { visibility: 1 } ] })
+        const lessons = await Lesson.find({ $or: [ { owner: owner }, { visibility: 1 } ] }).populate("activities")
 
         if(!lessons){ //if nothing returned, send error
             res.status(404).send({
@@ -47,6 +56,7 @@ exports.getLessons = async(req,res,next) => {
         }
         else{ //return activity with matchin id if found
             res.status(200).send({
+                success: true,
                 lessons: lessons
             })
         }
@@ -62,7 +72,7 @@ exports.createLesson = async(req, res, next) =>{
     const owner = req.user._id
     //extract the variables body of the request
     try{
-        const {title, description, tags, visibility, activities} = req.body
+        const {title, description, tags, visibility, activities, video_link} = req.body
         
         //create new lesson object
         const lesson = new Lesson({
@@ -71,7 +81,8 @@ exports.createLesson = async(req, res, next) =>{
             tags: tags,
             visibility: visibility,
             activities: activities,
-            owner: owner
+            owner: owner,
+            video_link:video_link
         })
 
         //save lesson object
@@ -92,27 +103,41 @@ exports.updateLesson = async(req, res, next) =>{
     console.log("Update Lesson")
 
     try{
+        const user_id = req.user._id
         //get id from request parameter
         const lesson_id = req.params.id
         //extract updates from req body
-        const {title, description, tags, visibility} = req.body
+        const {title, description, tags, visibility, activities, video_link} = req.body
 
         //create update query json
         const updates={
             title: title,
             description: description,
             tags: tags,
-            visibility: visibility
+            visibility: visibility,
+            activities: activities,
+            video_link: video_link
         }
 
         //send update request to database
-        const updatedLesson = await Lesson.findOneAndUpdate({_id: lesson_id}, updates, {new: true})
+        const updatedLesson = await Lesson.findOneAndUpdate({_id: lesson_id, owner: user_id}, updates, {new: true})
 
-        //send response
-        res.status(200).send({
-            success: true,
-            lesson: updatedLesson
-        })
+        if(updatedLesson)
+        {
+            //send response
+            return res.status(200).send({
+                success: true,
+                lesson: updatedLesson
+            })
+        }
+        else
+        {
+            return res.status(400).send({
+                success: false,
+                message: "Could not update lesson"
+            })
+        }
+        
     }
     catch (error)
     {

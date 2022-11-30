@@ -25,7 +25,7 @@ exports.loginUser = async(req, res, next) => {
 
     try{
         //get user from database, only retrieve password field
-        const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1})
+        const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1, accountType: 1})
         //save user for new requests
         req.user = user
         
@@ -57,7 +57,8 @@ exports.loginUser = async(req, res, next) => {
                 _id: user._id,
                 username: user.username,
                 firstname: user.firstname,
-                lastname: user.lastname
+                lastname: user.lastname,
+                accountType: user.accountType
             }
         })
 
@@ -118,11 +119,6 @@ exports.registerUser = async(req, res, next) =>{
         //send access tokena and refresh token
         res.status(201).send({
             success: true,
-            username: username,
-            firstname: firstname,
-            lastname: lastname,
-            access_token: savedUser.getSignedAccessToken(),
-            refresh_token: savedUser.getSignedRefreshToken()
         })
     }
     catch (error) {
@@ -164,6 +160,31 @@ exports.createUser = async(req, res, next) =>{
         })
 
     }catch (error)
+    {
+        next(error)
+    }
+}
+
+exports.getStudents = async(req,res,next) => {
+    try{
+        const students = await User.find({accountType: "Student"})
+
+        if(!students)
+        {
+            return res.status(404).send({
+                success: false,
+                message: "No students found"
+            })
+        }
+        else
+        {
+            return res.status(200).send({
+                success:true,
+                students: students
+            })
+        }
+    }
+    catch (error)
     {
         next(error)
     }

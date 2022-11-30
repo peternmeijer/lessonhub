@@ -28,6 +28,7 @@ app.use(express.json())
 app.use('/api/lesson', require('./routes/lesson'))
 app.use('/api/user', require('./routes/user'))
 app.use('/api/activity', require('./routes/activity'))
+app.use('/api/course', require('./routes/course'))
 
 //last middleware (ERROR HANDLER)
 app.use(errorHandler)

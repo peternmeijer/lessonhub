@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const LessonCard = ({ id, name, email }) => {
+const LessonCard = (props) => {
+
+	const {lesson} = props
 
 	const [show, setShow] = useState(false);
 
@@ -13,36 +15,40 @@ const LessonCard = ({ id, name, email }) => {
 		<>
 			<div className='tc bg-light-green dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
 				<div onClick={handleShow}>
-					<h2>{name}</h2>
-					<p>{email}</p>
+					<h2>{lesson.title}</h2>
 					<iframe width="420" height="315"
-						src="https://www.youtube.com/embed/C2CVlvSSFO4">
-					</iframe>
+						src={lesson.video_link}>
+					</iframe> 
 				</div>
 			</div>
 			<Modal show={show} onHide={handleClose} size="lg">
 				<Modal.Body>
-					<h1 style={{textAlign: 'center'}}>{name}</h1>
+					<h1 style={{textAlign: 'center'}}>{lesson.title}</h1>
 					<br></br>
-					<h4>Time Commitment:</h4>
-					<p>{email}</p>
 					<h4>Description</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-						Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-						and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+					<p>{lesson.description}</p>
+					{lesson.video_link != null ? <>
 					<h4>Tutorial Video</h4>
 					<div style={{ justifyContent: 'center', textAlign: 'center' }}>
 						<iframe width="700" height="350"
-							src="https://www.youtube.com/embed/C2CVlvSSFO4">
+							src={lesson.video_link}>
 						</iframe>
-					</div>
+					</div></> : <></>}
 					<br></br>
 					<h4>Activities</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-						Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-						galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-						and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+					{
+						lesson.activities.map((activity, i) => <>
+							<h5>{i+1 + ". " + activity.name}</h5>
+							<span style={{"display":"block"}}>Materials: {activity.materials}</span>
+							<span style={{"display":"block"}}>Equipment: {activity.materials}</span>
+							<span style={{"display":"block"}}>Tags: {activity.materials}</span>
+							{activity.tasks.length > 0 ? <>
+								<h6 className="ms-3 mt-3">Tasks</h6>
+								{activity.tasks.map((task, i) => <div className="ms-5"><span>{i+1 +". " + task.name}</span><p className="ms-3">{task.description}</p></div>)}
+							</>:
+							<></>}
+						</>)
+					}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="primary" onClick={handleClose}>
