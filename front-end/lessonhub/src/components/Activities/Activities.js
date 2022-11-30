@@ -42,7 +42,7 @@ const Activities = () => {
         {!editActivity ? 
         <><Container style={{ flexDirection: "column",  justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
             <Row>
-                <h1>Activities</h1>
+                <h1 style={{textAlign: 'center'}}>Activities</h1>
                 <hr></hr>
             </Row>
             <ActivityList title="Public Activities" activities={publicActivities} setActivities={setPublicActivities} setModalActivity={setModalActivity} setShowModal = {setShowModal} setEditActivity={setEditActivity}></ActivityList>
