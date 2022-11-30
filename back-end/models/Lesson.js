@@ -4,6 +4,7 @@ const Activity = require('./Activity')
 
 const LessonSchema = new mongoose.Schema(
 {
+    owner: mongoose.Types.ObjectId,
     title:{
         type: String,
         required: true
@@ -11,8 +12,14 @@ const LessonSchema = new mongoose.Schema(
     description:{
         type: String
     },
+    video_link:{
+        type: String
+    },
     tags: [String],
-    activities:[mongoose.Types.ObjectId],
+    activities:[{
+        type: mongoose.Types.ObjectId,
+        ref: 'Activity'}
+    ],
     visibility:{
         type: Boolean,
         default: 0

@@ -19,6 +19,7 @@ const LessonBuilder = () => {
     //state to store title of lesson and description of lesson
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
+    const [videoURL, setVideoURL] = useState("")
 
     //state to store list of available activities
     const [activities, setActivities] = useState([])
@@ -74,7 +75,6 @@ const LessonBuilder = () => {
                   "tags",
                   "tasks.name",
                   "tasks.description"
-                  
                 ]
               };
 
@@ -140,7 +140,8 @@ const LessonBuilder = () => {
             title: title,
             description: description,
             activities: lessonActivities.map(activity => activity._id),
-            tags: tagList
+            tags: tagList,
+            video_link: videoURL
         }
         console.log(lesson_object)
         createLesson(lesson_object, (response) =>{
@@ -175,6 +176,11 @@ const LessonBuilder = () => {
                         <Form.Group className="mb-3">
                             <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" placeholder="Lesson Description" value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Video Link (optional)</Form.Label>
+                            <Form.Control placeholder="Enter Video URL (optional)" value={videoURL} onChange={(event)=>{setVideoURL(event.target.value)}}/>
                         </Form.Group>
 
                         <FormMultiAdd title="Tags" placeholder="Enter Tag Name"  buttonText = "Add" input={tag} setInput={setTag} list={tagList} setList={setTagList}></FormMultiAdd>

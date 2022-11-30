@@ -57,6 +57,7 @@ exports.getActivity = async(req, res, next) => {
         }
         else{ //return activity with matchin id if found
             res.status(200).send({
+                success: true,
                 activity: activity
             })
         }
@@ -85,6 +86,7 @@ exports.getActivities = async(req,res,next) =>{
         }
         else{ //return activity with matchin id if found
             res.status(200).send({
+                success: true,
                 activities: activities
             })
         }
