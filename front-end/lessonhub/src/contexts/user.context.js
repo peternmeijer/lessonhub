@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
    }
 
    //send request to backend
-   let res = await axios.post("http://localhost:5000/api/user/login", payload, { withCredentials: true })
+   let res = await axios.post("http://localhost:5002/api/user/login", payload, { withCredentials: true })
    
    const user = res.data.user
    
@@ -60,7 +60,7 @@ export const UserProvider = ({ children }) => {
     let payload = {
      }
   
-     let res = await axios.post("http://localhost:5000/api/user/logout", payload)
+     let res = await axios.post("http://localhost:5002/api/user/logout", payload)
 
      console.log(res)
      //remove user frmo local storage
