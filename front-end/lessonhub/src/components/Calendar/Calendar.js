@@ -39,12 +39,12 @@ const Calendar = () => {
         const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
         if(user_accountType== "Administrator")
         {
-            navigate('/admin');
+            window.location.replace('/admin');
         }
       
     }catch (error)
     {
-        navigate('/about');
+        window.location.replace('/about');
     }
 
     const [allEvents, setAllEvents] = useState([])

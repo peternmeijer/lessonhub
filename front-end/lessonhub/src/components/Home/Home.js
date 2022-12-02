@@ -16,11 +16,11 @@ const Home = () => {
         const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
         if(user_accountType== "Administrator")
         {
-            navigate('/admin');
+            window.location.replace('/admin');
         }
         else if(user_accountType=="Student")
         {
-            navigate('/courses');
+            window.location.replace('/courses');
         }
     }catch (error)
     {
