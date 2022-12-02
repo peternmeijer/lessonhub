@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { getCourses } from "../Utils/apiCalls";
+import checkRedirect from "../Utils/navigateHelp";
 
 const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -31,7 +32,8 @@ const localizer = dateFnsLocalizer({
 })
 
 const Calendar = () => {
-
+    checkRedirect()
+    
     const [allEvents, setAllEvents] = useState([])
 
     const [lesson, setLesson] = useState(null)

@@ -9,8 +9,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import checkRedirect from "../Utils/navigateHelp";
 
 const Admin = () => {
+    checkRedirect();
     const [accountType, setAccountType] = useState("")
     const [registerToken, setRegisterToken] = useState(null)
 
