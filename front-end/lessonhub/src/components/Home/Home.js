@@ -6,10 +6,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo-color.png'
 import { Button } from '@mui/material';
-import checkRedirect from "../Utils/navigateHelp";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    checkRedirect()
+    //used for redirection of requests
+    const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
     //Render home screen with welcome message and link to lesson builder
     return (
         <>
