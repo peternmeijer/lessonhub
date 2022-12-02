@@ -10,11 +10,26 @@ import Modal from 'react-bootstrap/Modal';
 import ActivityList from './ActivityList'
 import {getActivities} from "../Utils/apiCalls"
 import EditActivity from './EditActivity'
-import checkRedirect from "../Utils/navigateHelp";
+import { useNavigate } from 'react-router-dom';
 
 const Activities = () => {
-    
-    checkRedirect()
+    //used for redirection of requests
+    const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
     
     const [publicActivities, setPublicActivities] = useState([])
     const [myActivities, setMyActivities] = useState([])

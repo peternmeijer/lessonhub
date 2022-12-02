@@ -17,11 +17,25 @@ import Fuse from 'fuse.js'
 import ActivityListItem from "./ActivityListItem"
 import LessonActivity from "./LessonActivity"
 import { useNavigate } from 'react-router-dom';
-import checkRedirect from "../Utils/navigateHelp";
 
 const LessonBuilder = () => {
-    checkRedirect()
+    //used for redirection of requests
     const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
     //state to store title of lesson and description of lesson
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")

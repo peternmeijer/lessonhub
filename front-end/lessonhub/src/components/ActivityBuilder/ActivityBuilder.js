@@ -12,13 +12,28 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {saveActivity} from "../Utils/apiCalls"
 import { useNavigate } from 'react-router-dom';
-import checkRedirect from "../Utils/navigateHelp";
+
 
 //component for the activity builder page and associated state methods
 const ActivityBuilder = () => {
-    checkRedirect()
-
+    //used for redirection of requests
     const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
+
     //use state for input fields
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
