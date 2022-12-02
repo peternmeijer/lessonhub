@@ -39,6 +39,7 @@ const Login = () => {
   const redirectNow = () => {
 
     const redirectTo = location.search.replace("?redirectTo=", "");
+    redirectTo = redirectTo.replace("lessons", "");
     navigate(redirectTo ? redirectTo : "/");
   }
 
