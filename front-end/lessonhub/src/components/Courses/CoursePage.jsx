@@ -104,7 +104,7 @@ const CoursePage = (props) => {
                 </Table>
             </Tab>
             <Tab eventKey="profile" title="Members">
-                {course.members.map(student => <span>{student.firstname + " " + student.lastname} {JSON.parse(localStorage.getItem("user")).accountType == "Instructor" ? <Button variant="danger" size="sm" className="mb-1 ms-3"> Delete </Button> : <></>}</span>)}
+                {course.members.map(student => <div className="mb-3">{student.firstname + " " + student.lastname} {JSON.parse(localStorage.getItem("user")).accountType == "Instructor" ? <Button variant="danger" size="sm" className="mb-1 ms-3"> Delete </Button> : <></>}</div>)}
             </Tab>
             {isInstructor ? <Tab eventKey="contact" title="Manage">
             <Button className="mb-3" style={{display: "block"}} variant="outline-warning" onClick={()=> {setShowAddMemberModal(true)}}>Add Member</Button>
@@ -147,7 +147,7 @@ const CoursePage = (props) => {
         <h1 style={{textAlign: 'center', paddingTop: '10px'}}>Add Members</h1>
            
         <Modal.Body>
-                {studentList.map(student => <div><span>{student.username}</span><Button variant="success" className="ms-3" size="sm" onClick={()=>addStudentToClass(student)}>Add To Class</Button></div>)}
+                {studentList.map(student => <div><span>{student.firstname + " " + student.lastname}</span><Button variant="success" className="ms-3 mb-3" size="sm" onClick={()=>addStudentToClass(student)}>Add To Class</Button></div>)}
         </Modal.Body>
         <Modal.Footer>
 					<Button variant="outline-secondary" onClick={() => setShowAddMemberModal(false)}>
