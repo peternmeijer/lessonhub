@@ -13,7 +13,7 @@ class Lessons extends React.Component {
 
     constructor() {
         super();
-        checkRedirect()
+        
         this.state = {
             lessonData: [],
             searchfield: '',
@@ -23,6 +23,7 @@ class Lessons extends React.Component {
 
     //fetch lesson data and populate to each lesson card
     componentDidMount() {
+        checkRedirect()
         getLessons((response)=>{
             this.setState({lessonData: response.data.lessons})
         },
