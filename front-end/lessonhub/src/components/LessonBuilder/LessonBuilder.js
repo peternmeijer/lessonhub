@@ -28,7 +28,7 @@ const LessonBuilder = () => {
         if(user_accountType== "Administrator")
         {
             console.log("navigating")
-            navigate('/admin');
+            window.location.replace('/admin');
         }
         else if(user_accountType=="Student")
         {
