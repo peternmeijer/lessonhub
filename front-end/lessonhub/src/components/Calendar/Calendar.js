@@ -17,7 +17,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { getCourses } from "../Utils/apiCalls";
-import checkRedirect from "../Utils/navigateHelp";
+import { useNavigate } from 'react-router-dom';
 
 const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -32,8 +32,24 @@ const localizer = dateFnsLocalizer({
 })
 
 const Calendar = () => {
-    checkRedirect()
-    
+    //used for redirection of requests
+    const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
+
     const [allEvents, setAllEvents] = useState([])
 
     const [lesson, setLesson] = useState(null)

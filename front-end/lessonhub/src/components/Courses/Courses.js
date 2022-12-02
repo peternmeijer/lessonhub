@@ -12,10 +12,26 @@ import Modal from 'react-bootstrap/Modal';
 import {getCourses, createCourse, deleteCourse} from "../Utils/apiCalls"
 import CourseListItem from './CourseListItem'
 import CoursePage from './CoursePage'
-import checkRedirect from "../Utils/navigateHelp";
+import { useNavigate } from 'react-router-dom';
 
 const Courses = () => {
-    checkRedirect()
+    //used for redirection of requests
+    const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
     //states for courses and modal control and viewing a course page
     const [courses, setCourses] = useState([])
     const [showModal, setShowModal] = useState(false)

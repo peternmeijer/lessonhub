@@ -9,10 +9,27 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import checkRedirect from "../Utils/navigateHelp";
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
-    checkRedirect();
+    //used for redirection of requests
+    const navigate = useNavigate();
+
+    try{
+        const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        if(user_accountType== "Administrator")
+        {
+            navigate('/admin');
+        }
+        else if(user_accountType=="Student")
+        {
+            navigate('/courses');
+        }
+    }catch (error)
+    {
+        navigate('/about');
+    }
+
     const [accountType, setAccountType] = useState("")
     const [registerToken, setRegisterToken] = useState(null)
 

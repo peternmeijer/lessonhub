@@ -7,6 +7,8 @@ import { getLessons } from "../Utils/apiCalls";
 import LessonCardList from "../LessonCardList/LessonCardList";
 import SearchBox from "../SearchBox/SearchBox";
 import LessonEditor from "./LessonEditor"
+import { useNavigate } from 'react-router-dom';
+
 class Lessons extends React.Component {
     
 
@@ -52,6 +54,23 @@ class Lessons extends React.Component {
     }
 
     render() {
+            //used for redirection of requests
+        const navigate = useNavigate();
+
+        try{
+            const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+            if(user_accountType== "Administrator")
+            {
+                navigate('/admin');
+            }
+            else if(user_accountType=="Student")
+            {
+                navigate('/courses');
+            }
+        }catch (error)
+        {
+            navigate('/about');
+        }
         
         const { lessonData, searchfield } = this.state;
 		const filteredLessons = lessonData.filter(lessonData =>{
