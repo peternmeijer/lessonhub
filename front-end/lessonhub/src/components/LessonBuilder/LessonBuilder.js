@@ -21,22 +21,21 @@ import { useNavigate } from 'react-router-dom';
 const LessonBuilder = () => {
     //used for redirection of requests
     const navigate = useNavigate();
-    console.log("LESSON BUILDER")
+    
     try{
         const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
-        console.log(user_accountType)
+        
         if(user_accountType== "Administrator")
         {
-            console.log("navigating")
             window.location.replace('/admin');
         }
         else if(user_accountType=="Student")
         {
-            navigate('/courses');
+            window.location.replace('/courses');
         }
     }catch (error)
     {
-        navigate('/about');
+        window.location.replace('/about');
     }
     //state to store title of lesson and description of lesson
     const [title, setTitle] = useState("")

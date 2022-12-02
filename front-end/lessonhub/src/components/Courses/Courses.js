@@ -22,12 +22,12 @@ const Courses = () => {
         const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
         if(user_accountType== "Administrator")
         {
-            navigate('/admin');
+            window.location.replace('/admin');
         }
     
     }catch (error)
     {
-        navigate('/about');
+        window.location.replace('/about');
     }
     //states for courses and modal control and viewing a course page
     const [courses, setCourses] = useState([])
