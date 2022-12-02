@@ -38,7 +38,7 @@ const Login = () => {
   // appropriate page once the authentication is done.
   const redirectNow = () => {
 
-    const redirectTo = location.search.replace("?redirectTo=", "");
+    let redirectTo = location.search.replace("?redirectTo=", "");
     redirectTo = redirectTo.replace("lessons", "");
     navigate(redirectTo ? redirectTo : "/");
   }
