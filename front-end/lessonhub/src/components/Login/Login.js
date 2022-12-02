@@ -39,7 +39,7 @@ const Login = () => {
   const redirectNow = () => {
 
     const redirectTo = location.search.replace("?redirectTo=", "");
-    navigate(redirectTo ? redirectTo : "/");
+    navigate(redirectTo ? redirectTo : "/about");
   }
 
   // Once a user logs in to our app, we don’t want to ask them for their
