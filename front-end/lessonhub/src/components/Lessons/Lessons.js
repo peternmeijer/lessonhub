@@ -9,10 +9,11 @@ import SearchBox from "../SearchBox/SearchBox";
 import LessonEditor from "./LessonEditor"
 import checkRedirect from "../Utils/navigateHelp";
 class Lessons extends React.Component {
-    checkRedirect()
     
+
     constructor() {
         super();
+        checkRedirect()
         this.state = {
             lessonData: [],
             searchfield: '',
