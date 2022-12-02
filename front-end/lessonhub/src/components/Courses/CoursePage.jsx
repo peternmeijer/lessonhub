@@ -79,8 +79,7 @@ const CoursePage = (props) => {
 
     //method when unscheduling button clicked
     const unscheduleLesson = (scheduledLesson) => {
-        console.log(scheduledLesson)
-        console.log(course.scheduledLessons)
+        
         updateCourse({name: course.name, members: course.members, scheduledLessons: course.scheduledLessons.filter(lesson => lesson.lesson._id != (scheduledLesson.lesson._id))})
     }
 
@@ -148,7 +147,7 @@ const CoursePage = (props) => {
         <h1 style={{textAlign: 'center', paddingTop: '10px'}}>Add Members</h1>
            
         <Modal.Body>
-                {studentList.map(student => <><span>{student.username}</span><Button variant="success" className="ms-3" size="sm" onClick={()=>addStudentToClass(student)}>Add To Class</Button></>)}
+                {studentList.map(student => <div><span>{student.username}</span><Button variant="success" className="ms-3" size="sm" onClick={()=>addStudentToClass(student)}>Add To Class</Button></div>)}
         </Modal.Body>
         <Modal.Footer>
 					<Button variant="outline-secondary" onClick={() => setShowAddMemberModal(false)}>

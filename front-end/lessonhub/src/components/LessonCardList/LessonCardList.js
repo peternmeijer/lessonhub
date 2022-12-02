@@ -6,12 +6,12 @@ import React from 'react';
 import LessonCard from '../LessonCard/LessonCard'
 
 //Display list of cards on lesson page, each with associated data
-const LessonCardList = ({lessonData}) => {
+const LessonCardList = ({lessonData, setEditLesson}) => {
 
 	const cardComponent = lessonData.map((lesson, i) => {
-		console.log(lessonData)
+		
 		return(
-			<LessonCard lesson={lesson}/>
+			<LessonCard lesson={lesson} setEditLesson={setEditLesson}/>
 			) 
 	})
 

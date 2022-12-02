@@ -14,7 +14,7 @@ import EditActivity from './EditActivity'
 
 const Activities = () => {
 
-    //getActivities(function(response){console.log(response)}, function(error){console.log(error)})
+    
     const [publicActivities, setPublicActivities] = useState([])
     const [myActivities, setMyActivities] = useState([])
     const [modalActivity, setModalActivity] = useState({name:"",description:"",tags:[], materials:[], equipment:[], tasks:[]})
@@ -23,7 +23,7 @@ const Activities = () => {
 
     const [show, setShow] = useState(false);
 
-	const handleClose = () => setShow(false);
+	const handleClose = () => setShowModal(false);
 	const handleShow = () => setShow(true);
 
     useEffect(() => {

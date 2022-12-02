@@ -52,7 +52,7 @@ const Calendar = () => {
                         events = [...events, { title: title, start: startDate, end: endDate, lesson: courses[x].scheduledLessons[k].lesson }]
                     }
                 }
-                console.log(events)
+                
                 setAllEvents(events)
             }
         }), (error) => console.log(error))
@@ -66,7 +66,7 @@ const Calendar = () => {
                 <Cal localizer={localizer} onSelectEvent={(event) => setLesson(event.lesson)} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: '90%', width: '90%', margin: "50px" }}></Cal>
             </div>
             {lesson == null ? <></> : <><Modal show={true} onHide={() => setLesson(null)} size="lg">
-                <Modal.Body>
+                <Modal.Body  style={{ wordBreak: 'break-word', overflow: "hidden"}}>
                     <h1 style={{ textAlign: 'center' }}>{lesson.title}</h1>
                     <br></br>
                     <h4>Description</h4>
@@ -85,8 +85,8 @@ const Calendar = () => {
                             lesson.activities.map((activity, i) => <>
                                 <h5>{i + 1 + ". " + activity.name}</h5>
                                 <span style={{ "display": "block" }}>Materials: {activity.materials}</span>
-                                <span style={{ "display": "block" }}>Equipment: {activity.materials}</span>
-                                <span style={{ "display": "block" }}>Tags: {activity.materials}</span>
+                                <span style={{ "display": "block" }}>Equipment: {activity.equipment}</span>
+                                <span style={{ "display": "block" }}>Tags: {activity.tags}</span>
                                 {activity.tasks.length > 0 ? <>
                                     <h6 className="ms-3 mt-3">Tasks</h6>
                                     {activity.tasks.map((task, i) => <div className="ms-5"><span>{i + 1 + ". " + task.name}</span><p className="ms-3">{task.description}</p></div>)}

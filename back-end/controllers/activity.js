@@ -1,4 +1,5 @@
 const Activity = require('../models/Activity')
+const Lesson = require("../models/Lesson")
 const mongoose = require('mongoose')
 
 exports.createActivity = async(req, res, next) =>{
@@ -169,6 +170,11 @@ exports.deleteActivity = async(req, res, next) =>{
         if(activityToDelete.owner.equals(user_id))
         {
             const deletedActivity = await Activity.deleteOne({_id: activityId})
+
+            const deleteReferences = await Lesson.updateMany(
+                {  },
+                { $pull: { "activities": activityId } }
+             )
 
             console.log(deletedActivity)
 

@@ -26,13 +26,17 @@ const Admin = () => {
             createRegisterToken(payload, (response) =>{
                 if(response.data.success)
                 {
-                    console.log(response)
+                    
                     setRegisterToken(response.data.registerToken.token)
                 }
             }, (error)=>{
                 console.log(error)
                 alert("An error has occured. Please try again later. " + error.response.data.error)
             })
+        }
+        else
+        {
+            alert("Must select valid account type.")
         }
     }
     return (

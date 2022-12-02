@@ -15,7 +15,7 @@ import CoursePage from './CoursePage'
 
 const Courses = () => {
 
-    //getActivities(function(response){console.log(response)}, function(error){console.log(error)})
+    //states for courses and modal control and viewing a course page
     const [courses, setCourses] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [viewingCourse, setViewingCourse] = useState(null)
@@ -42,7 +42,7 @@ const Courses = () => {
 
     const createNewCourse = () =>
     {
-        console.log("new course")
+        
         if(newCourse.name.trim() == "")
         {
             alert("Course name cannot be blank.")
