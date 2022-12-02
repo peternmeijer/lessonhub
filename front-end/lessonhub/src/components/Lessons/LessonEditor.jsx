@@ -219,7 +219,7 @@
                             <Form.Check 
                             type="switch"
                             id="custom-switch"
-                            label="Make activity public?"
+                            label="Make lesson public?"
                             value={visibility}
                             defaultChecked={visibility}
                             onChange={()=>setVisibility(!visibility)}
