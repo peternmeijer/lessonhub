@@ -21,9 +21,10 @@ import { useNavigate } from 'react-router-dom';
 const LessonBuilder = () => {
     //used for redirection of requests
     const navigate = useNavigate();
-
+    console.log("LESSON BUILDER")
     try{
         const user_accountType = JSON.parse(localStorage.getItem("user")).accountType
+        console.log(user_accountType)
         if(user_accountType== "Administrator")
         {
             navigate('/admin');
