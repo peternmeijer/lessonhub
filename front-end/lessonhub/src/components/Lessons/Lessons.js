@@ -7,7 +7,6 @@ import { getLessons } from "../Utils/apiCalls";
 import LessonCardList from "../LessonCardList/LessonCardList";
 import SearchBox from "../SearchBox/SearchBox";
 import LessonEditor from "./LessonEditor"
-import checkRedirect from "../Utils/navigateHelp";
 class Lessons extends React.Component {
     
 
@@ -53,7 +52,7 @@ class Lessons extends React.Component {
     }
 
     render() {
-        checkRedirect()
+        
         const { lessonData, searchfield } = this.state;
 		const filteredLessons = lessonData.filter(lessonData =>{
 			return lessonData.title.toLowerCase().includes(searchfield.toLowerCase());
