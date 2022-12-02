@@ -17,8 +17,10 @@ import Fuse from 'fuse.js'
 import ActivityListItem from "./ActivityListItem"
 import LessonActivity from "./LessonActivity"
 import { useNavigate } from 'react-router-dom';
+import checkRedirect from "../Utils/navigateHelp";
 
 const LessonBuilder = () => {
+    checkRedirect()
     const navigate = useNavigate();
     //state to store title of lesson and description of lesson
     const [title, setTitle] = useState("")

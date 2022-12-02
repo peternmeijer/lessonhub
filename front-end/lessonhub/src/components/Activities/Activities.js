@@ -5,15 +5,16 @@
 import React, {useState, useEffect} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ActivityList from './ActivityList'
 import {getActivities} from "../Utils/apiCalls"
 import EditActivity from './EditActivity'
+import checkRedirect from "../Utils/navigateHelp";
 
 const Activities = () => {
-
+    
+    checkRedirect()
     
     const [publicActivities, setPublicActivities] = useState([])
     const [myActivities, setMyActivities] = useState([])

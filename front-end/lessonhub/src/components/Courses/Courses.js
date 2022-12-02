@@ -12,9 +12,10 @@ import Modal from 'react-bootstrap/Modal';
 import {getCourses, createCourse, deleteCourse} from "../Utils/apiCalls"
 import CourseListItem from './CourseListItem'
 import CoursePage from './CoursePage'
+import checkRedirect from "../Utils/navigateHelp";
 
 const Courses = () => {
-
+    checkRedirect()
     //states for courses and modal control and viewing a course page
     const [courses, setCourses] = useState([])
     const [showModal, setShowModal] = useState(false)

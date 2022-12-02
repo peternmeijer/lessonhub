@@ -6,9 +6,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo-color.png'
 import { Button } from '@mui/material';
+import checkRedirect from "../Utils/navigateHelp";
 
 const Home = () => {
-
+    checkRedirect()
     //Render home screen with welcome message and link to lesson builder
     return (
         <>

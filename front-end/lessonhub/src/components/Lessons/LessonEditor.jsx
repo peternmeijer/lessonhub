@@ -191,7 +191,7 @@
          <>
          <Container style={{ flexDirection: "column",  justifyContent: 'center', height: '90vh',  paddingTop: "20px" }}>
              <Row>
-                 <h1 style={{textAlign: 'center'}}>Create Lesson</h1>
+                 <h1 style={{textAlign: 'center'}}>Edit Lesson</h1>
                  <hr></hr>
              </Row>
              <Row>
