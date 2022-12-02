@@ -34,7 +34,7 @@ const CoursePage = (props) => {
                 setStudentList(response.data.students.filter(student => course.members.filter(member => member._id == student._id).length == 0))   
             }
         }, (error)=>{console.log(error)})
-    }, []);
+    }, [course.members]);
 
     useEffect(() =>{
         setCourse({_id: course._id, name: course.name, members: course.members, scheduledLessons: course.scheduledLessons.sort((a,b) => (new Date(a.date) > new Date(b.last_nom)) ? 1 : ((new Date(b.date) > new Date(a.last_nom)) ? -1 : 0))})
@@ -74,7 +74,12 @@ const CoursePage = (props) => {
     //add a student to the class via backend (triggered upon click)
     const addStudentToClass = (student) => {
         updateCourse({name: course.name, members: [...course.members, student._id], scheduledLessons: course.scheduledLessons})
-        setStudentList(studentList.filter(s => s._id != student._id))
+        //setStudentList(studentList.filter(s => s._id != student._id))
+    }
+
+    //remove a student from class
+    const removeStudentFromClass = (student) =>{
+        updateCourse({name: course.name, members: course.members.filter(member => member._id != student._id), scheduledLessons: course.scheduledLessons})
     }
 
     //method when unscheduling button clicked
@@ -104,7 +109,7 @@ const CoursePage = (props) => {
                 </Table>
             </Tab>
             <Tab eventKey="profile" title="Members">
-                {course.members.map(student => <div className="mb-3">{student.firstname + " " + student.lastname} {JSON.parse(localStorage.getItem("user")).accountType == "Instructor" ? <Button variant="danger" size="sm" className="mb-1 ms-3"> Delete </Button> : <></>}</div>)}
+                {course.members.map(student => <div className="mb-3">{student.firstname + " " + student.lastname} {JSON.parse(localStorage.getItem("user")).accountType == "Instructor" ? <Button variant="danger" size="sm" className="mb-1 ms-3" onClick={()=>removeStudentFromClass(student)}> Remove </Button> : <></>}</div>)}
             </Tab>
             {isInstructor ? <Tab eventKey="contact" title="Manage">
             <Button className="mb-3" style={{display: "block"}} variant="outline-warning" onClick={()=> {setShowAddMemberModal(true)}}>Add Member</Button>
