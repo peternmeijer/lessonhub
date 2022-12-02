@@ -19,12 +19,12 @@ const LessonCard = (props) => {
 	//When clicked, show lesson information and activities
 	return (
 		<>
-			<div className='tc bg-washed-yellow dib br2 pa3 ma2 grow bw2 shadow-5 pointer'>
+			<div className='tc bg-washed-yellow dib br2 pa3 ma2 grow bw2 shadow-5 pointer' style={{verticalAlign: "top"}}>
 				<div onClick={handleShow}>
 					<h2>{lesson.title}</h2>
-					<iframe width="420" height="315"
+					{lesson.video_link != null && lesson.video_link != "" ? <iframe width="420" height="315"
 						src={lesson.video_link}>
-					</iframe> 
+					</iframe> : <div style={{width: "420px", height: "315px", wordBreak: 'break-word', overflow: "hidden"}}>{lesson.description}<p></p><p>(No video preview.)</p></div>}
 				</div>
 			</div>
 			<Modal show={show} onHide={handleClose} size="lg">
@@ -33,14 +33,14 @@ const LessonCard = (props) => {
 					<br></br>
 					<h4>Description</h4>
 					<p>{lesson.description}</p>
-					{lesson.video_link != null ? <>
+					{lesson.video_link != null && lesson.video_link != "" ? <>
 					<h4>Tutorial Video</h4>
 					<div style={{ justifyContent: 'center', textAlign: 'center' }}>
 						<iframe width="700" height="350"
 							src={lesson.video_link}>
 						</iframe>
 					</div></> : <></>}
-					<br></br>
+					{lesson.activities.length > 0 ? <><br></br>
 					<h4>Activities</h4>
 					{
 						lesson.activities.map((activity, i) => <>
@@ -54,7 +54,7 @@ const LessonCard = (props) => {
 							</>:
 							<></>}
 						</>)
-					}
+					} </> : <></>}
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="primary" onClick={handleClose}>

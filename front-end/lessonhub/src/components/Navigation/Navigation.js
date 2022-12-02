@@ -14,8 +14,9 @@ import { Navbar } from "react-bootstrap";
 import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/user.context";
-import { Button } from '@mui/material';
-import logo from '../../assets/logo-color.png'
+import Button from "react-bootstrap/Button"
+import logo from '../../assets/logo-white.png'
+import "./nav.css"
 
 const Navigation = () => {
   const { logOutUser } = useContext(UserContext);
@@ -43,7 +44,7 @@ const Navigation = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+      <Navbar collapseOnSelect expand="lg" style={{"background":"#F5BA41"}} >
         <Container>
           <Navbar.Brand as={Link} to="/"><img src={logo} style={{width: '250px'}}></img></Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -51,17 +52,17 @@ const Navigation = () => {
             <Nav className="me-auto">
             </Nav>
             <Nav>
-              {accountType=="Instructor" || accountType=="Student" ? <Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>: <></>}
-              {accountType=="Instructor"  || accountType=="Student"? <Nav.Link as={Link} to="/courses">Courses</Nav.Link>: <></>}
-              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>: <></>}
-              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessonbuilder">Lesson Builder</Nav.Link>: <></>}
-              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activities">Activities</Nav.Link>: <></>}
-              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activitybuilder">Activity Builder</Nav.Link> : <></>}
-              {accountType=="Instructor" ||accountType=="Administrator" ? <Nav.Link as={Link} to="/admin">Admin</Nav.Link> : <></> }
-              <Nav.Link as={Link} to="/about">About</Nav.Link>
-              {accountType != null ? <Button variant="contained" onClick={logOut} >Logout</Button> : <></>}
-              {accountType == null ? <Nav.Link as={Link} to="/login">Sign In</Nav.Link> : <></>}
-              {accountType == null ? <Nav.Link as={Link} to="/register">Register</Nav.Link> : <></>}
+              {accountType=="Instructor" || accountType=="Student" ? <Nav.Link as={Link} to="/calendar"><b>Calendar</b></Nav.Link>: <></>}
+              {accountType=="Instructor"  || accountType=="Student"? <Nav.Link as={Link} to="/courses"><b>Courses</b></Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessons" ><b>Lessons</b></Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/lessonbuilder" ><b>Lesson Builder</b></Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activities" ><b>Activities</b></Nav.Link>: <></>}
+              {accountType=="Instructor" ? <Nav.Link as={Link} to="/activitybuilder" ><b>Activity Builder</b></Nav.Link> : <></>}
+              {accountType=="Instructor" ||accountType=="Administrator" ? <Nav.Link as={Link} to="/admin" ><b>Admin</b></Nav.Link> : <></> }
+              <Nav.Link as={Link} to="/about"><b>About</b></Nav.Link>
+              {accountType != null ? <Button variant="logout" className="ms-3" onClick={logOut} ><b>Logout</b></Button> : <></>}
+              {accountType == null ? <Nav.Link as={Link} to="/login"><b>Sign In</b></Nav.Link> : <></>}
+              {accountType == null ? <Nav.Link as={Link} to="/register"><b>Register</b></Nav.Link> : <></>}
             </Nav>
           </Navbar.Collapse>
         </Container>

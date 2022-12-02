@@ -28,7 +28,29 @@ function App() {
   
   return (
     <div className="App">
-      
+      <style type="text/css">
+        {`
+    .btn-primary {
+      background-color: #fadfa8 !important;
+      color: #664D1B;
+      border-color: #fadfa8 !important;
+    }
+    .btn-primary:hover {
+      background-color: #fadfa8 !important;
+      color: black;
+      border-color: #fadfa8 !important;
+      font-weight: bold;
+    }
+
+    .btn-logout{
+      background-color: white !important;
+      color: #664D1B;
+      border-color: #fadfa8 !important;
+    }
+
+    
+    `}
+      </style>
       <BrowserRouter>
         {/* We are wrapping our whole app with UserProvider so that */}
         {/* our user is accessible through out the app from any page*/}

@@ -16,7 +16,7 @@ const app = express();
 
 //used to deconstruct json from requests
 app.use(cors({
-    origin: "http://www.lessonhub.tk:3006",
+    origin: ["http://www.lessonhub.tk:3006", "http://www.lessonhub.tk","http://localhost:3000"],
     preflightContinue: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
