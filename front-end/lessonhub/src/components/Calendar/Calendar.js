@@ -41,10 +41,7 @@ const Calendar = () => {
         {
             navigate('/admin');
         }
-        else if(user_accountType=="Student")
-        {
-            navigate('/courses');
-        }
+      
     }catch (error)
     {
         navigate('/about');
