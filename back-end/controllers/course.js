@@ -76,7 +76,11 @@ exports.getCourses = async(req,res,next) =>{
     
     try{
         const user_id = req.user._id
-        const courses = await Course.find({ $or: [ { owner: user_id }, { members: user_id } ] }).populate("members").populate("scheduledLessons.lesson")
+        const courses = await Course.find({ $or: [ { owner: user_id }, { members: user_id } ] }).populate("members").populate("scheduledLessons.lesson").populate({
+            path:     'scheduledLessons.lesson',			
+            populate: { path:  'activities',
+                    model: 'Activity' }
+          })
 
         if(!courses){ //if nothing returned, send error
             res.status(404).send({

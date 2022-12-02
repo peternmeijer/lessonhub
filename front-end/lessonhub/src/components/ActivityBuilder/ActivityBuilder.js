@@ -174,7 +174,7 @@ const ActivityBuilder = () => {
 
         //call api call with payload to save activity
         saveActivity(activity_object_payload, function(response){
-            console.log(response)
+            
             if(response.data.success)
             {
                 alert("Successfully added activity: " + response.data.activity.name)

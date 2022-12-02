@@ -18,12 +18,12 @@ const RegisterToken = require('../models/RegisterToken')
 exports.loginUser = async(req, res, next) => {
     //extract username and password from body
     const {username, password} = req.body
-
+    try{
     //ensure values are provided
     wasProvided(username, "username")
     wasProvided(password, "password")
 
-    try{
+    
         //get user from database, only retrieve password field
         const user = await User.findOne({username: username},{_id: 1, password: 1, username: 1, firstname: 1, lastname: 1, accountType: 1})
         //save user for new requests
@@ -31,13 +31,13 @@ exports.loginUser = async(req, res, next) => {
         
         //check if user exists
         if(!user)
-            return next(new ResponseError("Invalid Credentials."),401)
+            return next(new ResponseError("Invalid Credentials.",401))
         
         //check password in database matches password provided
         const isPasswordMatch = await user.matchPassword(password)
 
         if(!isPasswordMatch)
-            return next(new ResponseError("Invalid Credentials."),401)
+            return next(new ResponseError("Invalid Credentials.",401))
 
         
         res.cookie("access-token", user.getSignedAccessToken(),{

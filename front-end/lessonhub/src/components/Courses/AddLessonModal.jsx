@@ -33,7 +33,7 @@ const AddLessonModal = (props) => {
 
     
     const saveScheduledLesson = () => {
-        console.log("SAVING")
+        
         if(scheduleLesson != null && scheduleLessonDate.trim() != "" && scheduleLessonTime.trim() != "")
         {
             try
@@ -71,13 +71,14 @@ const AddLessonModal = (props) => {
                     lesson: scheduleLesson._id,
                     date: lesson_date.toISOString()
                 }
-                console.log(lesson_object)
+                
                 updateCourse({name: course.name, members: course.members, scheduledLessons: [...course.scheduledLessons, lesson_object]})
                 setScheduleLesson(null)
                 setShowAddLessonModal(false)
             }
             catch(error)
             {
+                alert("Error occured while scheduling lesson.")
                 console.log(error)
             }
         }

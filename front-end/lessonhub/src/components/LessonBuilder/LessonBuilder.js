@@ -28,6 +28,9 @@ const LessonBuilder = () => {
     //state to store list of available activities
     const [activities, setActivities] = useState([])
 
+    //state for visibility
+    const [visibility, setVisibility] = useState(false)
+
     //states for tags
     const [tag, setTag] = useState("")
     const [tagList, setTagList] = useState(new Array())
@@ -105,7 +108,7 @@ const LessonBuilder = () => {
     const removeActivity = (index) =>
     {
         let activity = [lessonActivities[index]];
-        console.log(activity)
+        
         let newArray = lessonActivities.filter(element => !activity.includes(element));
         setLessonActivities(newArray)
         setActivities([...activities, activity[0]])
@@ -138,6 +141,7 @@ const LessonBuilder = () => {
         if(!title || !description)
         {
             alert("Title and description must be provided.")
+            return
         }
         //
         const lesson_object = {
@@ -145,9 +149,10 @@ const LessonBuilder = () => {
             description: description,
             activities: lessonActivities.map(activity => activity._id),
             tags: tagList,
-            video_link: videoURL
+            video_link: videoURL,
+            visibility: visibility
         }
-        console.log(lesson_object)
+
         createLesson(lesson_object, (response) =>{
             if(response.data.success == true)
             {
@@ -185,6 +190,16 @@ const LessonBuilder = () => {
                         <Form.Group className="mb-3">
                             <Form.Label>Video Link (optional)</Form.Label>
                             <Form.Control placeholder="Enter Video URL (optional)" value={videoURL} onChange={(event)=>{setVideoURL(event.target.value)}}/>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Visibility</Form.Label>
+                            <Form.Check 
+                            type="switch"
+                            id="custom-switch"
+                            label="Make lesson public?"
+                            value={visibility}
+                            onChange={()=>setVisibility(!visibility)}
+                            />
                         </Form.Group>
 
                         <FormMultiAdd title="Tags" placeholder="Enter Tag Name"  buttonText = "Add" input={tag} setInput={setTag} list={tagList} setList={setTagList}></FormMultiAdd>
@@ -234,11 +249,7 @@ const LessonBuilder = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="example-modal-sizes-title-lg"
         >
-        <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">
-            {modalActivity.name}
-        </Modal.Title>
-        </Modal.Header>
+         <h1 style={{textAlign: 'center', paddingTop: '10px'}}>{modalActivity.name}</h1>
         <Modal.Body>
             <h5>Description</h5>
             <p className="mb-4">{modalActivity.description}</p>

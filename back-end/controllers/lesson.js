@@ -1,4 +1,5 @@
 const Lesson = require('../models/Lesson')
+const Course = require('../models/Course')
 
 exports.getLesson = async(req, res, next) => {
     console.log("Get Lesson")
@@ -141,6 +142,53 @@ exports.updateLesson = async(req, res, next) =>{
     }
     catch (error)
     {
+        next(error)
+    }
+}
+
+exports.deleteLesson = async(req, res, next) =>{
+    console.log("Delete Lesson")
+    console.log(req.params.id)
+    try{
+        const user_id = req.user._id
+        const lessonId = req.params.id
+
+        const lessonToDelete = await Lesson.findById(lessonId)
+
+        if(!lessonToDelete)
+        {
+            return res.status(404).send({
+                success:false,
+                message: "Lesson not found."
+            })
+        }
+       
+        if(lessonToDelete.owner.equals(user_id))
+        {
+            const deletedLesson = await Lesson.deleteOne({_id: lessonId})
+
+            const deleteReferences = await Course.updateMany(
+                {  },
+                { $pull: { "scheduledLessons": {"lesson":lessonId} } }
+             )
+
+            console.log(deletedLesson)
+
+            return res.status(200).send({
+                success: deletedLesson.acknowledged
+            })
+
+        }
+        else
+        {
+            return res.status(401).send({
+                success:false,
+                message: "Unauthorized"
+            })
+        }
+
+    }catch(error){
+        console.log(error)
         next(error)
     }
 }

@@ -21,10 +21,15 @@ export const UserProvider = ({ children }) => {
     username: username,
     password: password
    }
-
+   let res;
    //send request to backend
-   let res = await axios.post("http://www.lessonhub.tk:5002/api/user/login", payload, { withCredentials: true })
-   
+   try{
+     res = await axios.post("http://localhost:5000/api/user/login", payload, { withCredentials: true })
+   }
+   catch{
+    alert("Invalid Login.")
+    return
+   }
    const user = res.data.user
    
    localStorage.setItem('user', JSON.stringify(user))
@@ -60,7 +65,7 @@ export const UserProvider = ({ children }) => {
     let payload = {
      }
   
-     let res = await axios.post("http://www.lessonhub.tk:5002/api/user/logout", payload)
+     let res = await axios.post("http://localhost:5000/api/user/logout", payload)
 
      console.log(res)
      //remove user frmo local storage

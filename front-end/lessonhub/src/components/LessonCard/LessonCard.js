@@ -8,8 +8,10 @@ import Modal from 'react-bootstrap/Modal';
 
 const LessonCard = (props) => {
 
-	const {lesson} = props
-
+	const {lesson, setEditLesson} = props
+	const user_id = JSON.parse(localStorage.getItem("user"))._id
+	
+	const showEdit = user_id == lesson.owner
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -32,7 +34,7 @@ const LessonCard = (props) => {
 					<h1 style={{textAlign: 'center'}}>{lesson.title}</h1>
 					<br></br>
 					<h4>Description</h4>
-					<p>{lesson.description}</p>
+					<p  style={{ wordBreak: 'break-word', overflow: "hidden"}}>{lesson.description}</p>
 					{lesson.video_link != null && lesson.video_link != "" ? <>
 					<h4>Tutorial Video</h4>
 					<div style={{ justifyContent: 'center', textAlign: 'center' }}>
@@ -57,6 +59,9 @@ const LessonCard = (props) => {
 					} </> : <></>}
 				</Modal.Body>
 				<Modal.Footer>
+					{showEdit ? <Button variant="primary" onClick={()=>setEditLesson(lesson)}>
+						Edit Lesson
+					</Button> : <></>}
 					<Button variant="primary" onClick={handleClose}>
 						Back to Lessons
 					</Button>
