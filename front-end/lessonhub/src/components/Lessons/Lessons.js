@@ -23,7 +23,7 @@ class Lessons extends React.Component {
 
     //fetch lesson data and populate to each lesson card
     componentDidMount() {
-        checkRedirect()
+        
         getLessons((response)=>{
             this.setState({lessonData: response.data.lessons})
         },
@@ -53,7 +53,7 @@ class Lessons extends React.Component {
     }
 
     render() {
-
+        checkRedirect()
         const { lessonData, searchfield } = this.state;
 		const filteredLessons = lessonData.filter(lessonData =>{
 			return lessonData.title.toLowerCase().includes(searchfield.toLowerCase());
