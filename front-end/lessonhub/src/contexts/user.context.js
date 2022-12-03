@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
    let res;
    //send request to backend
    try{
-     res = await axios.post("http://www.lessonhub.tk:5002/api/user/login", payload, { withCredentials: true })
+     res = await axios.post("http://localhost:5000/api/user/login", payload, { withCredentials: true })
    }
    catch{
     alert("Invalid Login.")
@@ -65,7 +65,7 @@ export const UserProvider = ({ children }) => {
     let payload = {
      }
   
-     let res = await axios.post("http://www.lessonhub.tk:5002/api/user/logout", payload)
+     let res = await axios.post("http://localhost:5000/api/user/logout", payload)
 
      console.log(res)
      //remove user frmo local storage
